@@ -4,6 +4,7 @@ import 'package:hjulfix_new/core/configs/app_configs.dart';
 import 'package:hjulfix_new/core/utils/system_utils.dart';
 
 import '../../app_resources/app_colors.dart';
+import '../../theme/app_text_styles.dart';
 
 class GlobalTextField extends StatefulWidget {
   final String? labelText;
@@ -19,6 +20,8 @@ class GlobalTextField extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? labelStyle;
   final EdgeInsetsGeometry? contentPadding;
+  final List<String>? autofillHints; // New parameter for autofill
+
 
   const GlobalTextField({
     super.key,
@@ -35,6 +38,8 @@ class GlobalTextField extends StatefulWidget {
     this.textStyle,
     this.labelStyle,
     this.contentPadding,
+    this.autofillHints, // Add autofill hints parameter
+
   });
 
   @override
@@ -75,14 +80,17 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           Text(
             " ${widget.labelText!}",
             style: widget.labelStyle ??
-                TextStyle(
-                  fontSize: 12.sp,
-                    fontFamily: AppConfigs.appFontFamily,
-                  fontWeight: FontWeight.w500,
+                FigmaTextStyles.headline07Medium.copyWith(
                   color: AppColors.textSecondaryGreyish
                 ),
+                // TextStyle(
+                //   fontSize: 11.5.sp,
+                //     fontFamily: AppConfigs.appFontFamily,
+                //   fontWeight: FontWeight.w500,
+                //   color: AppColors.textSecondaryGreyish
+                // ),
           ),
-          const SizedBox(height: 8),
+          8.verticalSpace,
         ],
 
         // Text field
@@ -95,6 +103,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           validator: widget.validator,
           enabled: widget.enabled,
           maxLines: widget.maxLines,
+          autofillHints: widget.autofillHints, // Add autofill hints
           style: widget.textStyle ??
               TextStyle(
                 fontSize: 12.sp,
@@ -107,6 +116,9 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             // FocusScope.of(context).unfocus();
             SystemMethods.dismissKeyboard();
           },
+          cursorColor: AppColors.textPrimary,
+          cursorHeight: 16,
+          cursorWidth: 1.75,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: const TextStyle(

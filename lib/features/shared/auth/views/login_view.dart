@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
 import '../../../../core/configs/app_configs.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
+import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../test_button.dart';
 
 class LoginView extends ConsumerWidget {
@@ -31,93 +33,133 @@ class LoginView extends ConsumerWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppDimensions.viewHorizontalPadding
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      body: AutofillGroup(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(
+              horizontal: AppDimensions.viewHorizontalPadding
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
 
-            34.verticalSpace,
-            Text(
-              'Sign in to your Account',
-              style: TextStyle(
-                color: Colors.black,
-                fontFamily: AppConfigs.appFontFamily,
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w700,
+              34.verticalSpace,
+
+              AppText(
+                'Sign in to your Account',
+                style: FigmaTextStyles.headline02Bold,
               ),
-            ),
-            5.verticalSpace,
-            Text(
-              'Enter your email and password to log in ',
-              style: TextStyle(
-                color: Color(0xff6C7278),
-                fontFamily: AppConfigs.appFontFamily,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            34.verticalSpace,
+              5.verticalSpace,
 
-            GlobalTextField(
-              labelText: 'Email Address',
-            ),
-            16.verticalSpace,
-            GlobalTextField(
-              labelText: 'Password',
-              isObscure: true,
-            ),
-            16.verticalSpace,
-            Row(
-              children: [
-                Row(
-                  children: [
-
-                    //---- Animated Checkbox
-                    Container(
-                      height: 20.h,
-                      width: 20.h,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.r),
-                        border: Border.all(
-                          color: AppColors.textSecondaryGreyish,
-                        )
-                      ),
-                    ),
-                    5.horizontalSpace,
-                    Text('Remember me',
-                   style:   TextStyle(
-                          fontSize: 12.sp,
-                          fontFamily: AppConfigs.appFontFamily,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.textSecondaryGreyish
-                      ),
-                    ),
-
-
-                  ],
+              AppText(
+                'Enter your email and password to log in',
+                style:  FigmaTextStyles.headline07Medium.copyWith(
+                    color: AppColors.textSecondaryGreyish
                 ),
-                GestureDetector(
-                  onTap: () => HapticFeedback.lightImpact(),
-                  child: Text('Forgot Password ?',
-                    style: TextStyle(
-                      color: AppColors.primary,
-                      fontFamily: AppConfigs.appFontFamily,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w600,
+              ),
+
+
+
+              34.verticalSpace,
+
+              GlobalTextField(
+                labelText: 'Email Address',
+                keyboardType: TextInputType.emailAddress,
+                autofillHints: const [AutofillHints.email], // Email autofill
+              ),
+              16.verticalSpace,
+              GlobalTextField(
+                labelText: 'Password',
+                isObscure: true,
+                autofillHints: const [AutofillHints.password], // Password autofill
+              ),
+              20.verticalSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+
+                      //---- Animated Checkbox
+                      Container(
+                        height: 16.h,
+                        width: 16.h,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2.r),
+                          border: Border.all(
+                            color: AppColors.textSecondaryGreyish,
+                          )
+                        ),
+                      ),
+                      7.horizontalSpace,
+                      AppText(
+                        'Remember me',
+                        style:  FigmaTextStyles.headline07Medium.copyWith(
+                            color: AppColors.textSecondaryGreyish
+                        ),
+                      ),
+
+
+
+                    ],
+                  ),
+
+
+                  AppText(
+                    'Forgot Password ?',
+                    style:  FigmaTextStyles.headline07Medium.copyWith(
+                        color: AppColors.primary
+                    ),
+
+                  ),
+
+                  // GestureDetector(
+                  //   onTap: () => HapticFeedback.lightImpact(),
+                  //   child: Text('Forgot Password ?',
+                  //     style: TextStyle(
+                  //       color: AppColors.primary,
+                  //       fontFamily: AppConfigs.appFontFamily,
+                  //       fontSize: 12.sp,
+                  //       fontWeight: FontWeight.w600,
+                  //     ),
+                  //   ),
+                  // )
+                ],
+              ),
+              35.verticalSpace,
+              CustomButton(text: "Log In", onPressed: () {
+                // context.push(RoutePaths.login);
+              }),
+
+              30.verticalSpace,
+
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('Don\'t have an account?',
+                    style:   TextStyle(
+                        fontSize: 12.sp,
+                        fontFamily: AppConfigs.appFontFamily,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.textSecondaryGreyish
                     ),
                   ),
-                )
-              ],
-            ),
-            35.verticalSpace,
-            CustomButton(text: "Log In", onPressed: () {
-              // context.push(RoutePaths.login);
-            }),
+                  6.horizontalSpace,
+                  Text('Create an Account',
+                    style:   TextStyle(
+                        fontSize: 12.sp,
+                        fontFamily: AppConfigs.appFontFamily,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primary
+                    ),
+                  ),
 
-          ],
+                ],
+              )
+
+
+            ],
+          ),
         ),
       ),
     );

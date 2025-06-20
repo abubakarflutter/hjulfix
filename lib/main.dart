@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/routes/app_router.dart';
 import 'core/services/cache_service.dart';
+import 'core/theme/app_theme.dart';
 import 'core/utils/logging.dart';
 import 'core/utils/system_utils.dart';
 import 'features/shared/welcome/views/welcome_view.dart';
@@ -45,8 +46,11 @@ class _MyAppState extends State<MyApp> {
       builder: (_, __) {
         return MaterialApp.router(
           debugShowCheckedModeBanner: false,
-          title: 'First Method',
+          title: 'HJULFIX ®',
           routerConfig: appRouter, // ← GoRouter config
+          darkTheme: AppTheme.darkTheme,
+          theme: AppTheme.lightTheme,
+          themeMode: ThemeMode.light,
           builder: (context, child) {
             return MediaQuery(
               data: MediaQuery.of(context)

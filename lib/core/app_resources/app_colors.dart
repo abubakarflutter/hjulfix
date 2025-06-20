@@ -6,6 +6,7 @@ class AppColors {
   static const textPrimary = Color(0xff1A1C1E);
   static const textSecondaryGreyish = Color(0xff6C7278);
   static const borderColor = Color(0xffD7D7D7);
+  static const scaffoldBGColor = Colors.white;
 
   //------ Component Specific
   static const buttonTextColor = Colors.white;
