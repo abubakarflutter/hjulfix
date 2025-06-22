@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/app_resources/app_colors.dart';
 import 'core/configs/app_configs.dart';
+import 'core/utils/media_query.dart';
 
 class CustomButton extends StatefulWidget {
   /// The text to display on the button
@@ -48,7 +49,6 @@ class CustomButton extends StatefulWidget {
 
 class CustomButtonState extends State<CustomButton>
     with SingleTickerProviderStateMixin {
-
   late AnimationController animationController;
   late Animation<double> animation;
 
@@ -68,14 +68,8 @@ class CustomButtonState extends State<CustomButton>
 
     animationController.value = 1;
 
-    animation = Tween(
-      begin: widget.scaleCoefficient,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.elasticOut,
-      ),
+    animation = Tween(begin: widget.scaleCoefficient, end: 1.0).animate(
+      CurvedAnimation(parent: animationController, curve: Curves.elasticOut),
     );
   }
 
@@ -136,7 +130,8 @@ class CustomButtonState extends State<CustomButton>
                 ? () => springUp()
                 : null,
             child: Container(
-              height: 45.h,
+              height: isTablet() ? 40.h : 45.h,
+              // height: 45.h,
               width: double.infinity,
               // padding: EdgeInsets.symmetric(
               //   vertical: 12.h
@@ -166,29 +161,31 @@ class CustomButtonState extends State<CustomButton>
               ),
               child: Center(
                 child: widget.isLoading
-                    ? const SizedBox(
-                  height: 22,
-                  width: 22,
-                  child: SpinnerLoader(
-                    options: LoaderOptions(
-                      color: AppColors.buttonLoadingColor,
-                      // size: LoaderSize.small,
-                      strokeWidth: 3,
-                      backgroundColor: AppColors.buttonLoadingBGColor,
-                      durationMs: 1000,
-                      loop: true,
-                    ),
-                  )
-                )
+                    ? SizedBox(
+                        height: isTablet() ? 18.h : 22.h,
+                        width: isTablet() ? 18.h : 22.h,
+
+                        child: SpinnerLoader(
+                          options: LoaderOptions(
+                            color: AppColors.buttonLoadingColor,
+                            // size: LoaderSize.small,
+                            strokeWidth: 3,
+                            backgroundColor: AppColors.buttonLoadingBGColor,
+                            durationMs: 1000,
+                            loop: true,
+                          ),
+                        ),
+                      )
                     : Text(
-                  widget.text,
-                  style:  TextStyle(
-                    color: AppColors.buttonTextColor,
-                    fontFamily: AppConfigs.appFontFamily,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                        widget.text,
+                        style: TextStyle(
+                          color: AppColors.buttonTextColor,
+                          fontFamily: AppConfigs.appFontFamily,
+                          // fontSize: 14.sp,
+                          fontSize: isTablet() ? 8.5.sp : 14.sp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
             ),
           ),

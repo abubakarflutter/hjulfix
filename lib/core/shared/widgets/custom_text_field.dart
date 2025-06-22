@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hjulfix_new/core/configs/app_configs.dart';
+import 'package:hjulfix_new/core/utils/media_query.dart';
 import 'package:hjulfix_new/core/utils/system_utils.dart';
 
 import '../../app_resources/app_colors.dart';
@@ -22,7 +22,6 @@ class GlobalTextField extends StatefulWidget {
   final EdgeInsetsGeometry? contentPadding;
   final List<String>? autofillHints; // New parameter for autofill
 
-
   const GlobalTextField({
     super.key,
     this.labelText,
@@ -39,7 +38,6 @@ class GlobalTextField extends StatefulWidget {
     this.labelStyle,
     this.contentPadding,
     this.autofillHints, // Add autofill hints parameter
-
   });
 
   @override
@@ -79,16 +77,18 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
         if (widget.labelText != null) ...[
           Text(
             " ${widget.labelText!}",
-            style: widget.labelStyle ??
+            style:
+                widget.labelStyle ??
                 FigmaTextStyles.headline07Medium.copyWith(
-                  color: AppColors.textSecondaryGreyish
+                  color: AppColors.textSecondaryGreyish,
+                  fontSize: 7.5.sp,
                 ),
-                // TextStyle(
-                //   fontSize: 11.5.sp,
-                //     fontFamily: AppConfigs.appFontFamily,
-                //   fontWeight: FontWeight.w500,
-                //   color: AppColors.textSecondaryGreyish
-                // ),
+            // TextStyle(
+            //   fontSize: 11.5.sp,
+            //     fontFamily: AppConfigs.appFontFamily,
+            //   fontWeight: FontWeight.w500,
+            //   color: AppColors.textSecondaryGreyish
+            // ),
           ),
           8.verticalSpace,
         ],
@@ -104,30 +104,36 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           enabled: widget.enabled,
           maxLines: widget.maxLines,
           autofillHints: widget.autofillHints, // Add autofill hints
-          style: widget.textStyle ??
-              TextStyle(
-                fontSize: 12.sp,
-                fontFamily: AppConfigs.appFontFamily,
-                fontWeight: FontWeight.w500,
-                color: AppColors.textPrimary
+          style:
+              widget.textStyle ??
+              FigmaTextStyles.headline07Medium.copyWith(
+                // color: AppColors.textSecondaryGreyish,
+                fontSize: 8.5.sp,
               ),
+          // TextStyle(
+          //   fontSize: 12.sp,
+          //   fontFamily: AppConfigs.appFontFamily,
+          //   fontWeight: FontWeight.w500,
+          //   color: AppColors.textPrimary,
+          // ),
           onTapOutside: (PointerDownEvent event) {
             // Dismiss keyboard and unfocus when tapping outside
             // FocusScope.of(context).unfocus();
             SystemMethods.dismissKeyboard();
           },
           cursorColor: AppColors.textPrimary,
-          cursorHeight: 16,
-          cursorWidth: 1.75,
+          cursorHeight: isTablet() ? 14.h : 16.h,
+          cursorWidth: 1.75.w,
           decoration: InputDecoration(
             hintText: widget.hintText,
-            hintStyle: const TextStyle(
-              fontSize: 16,
-              color: Color(0xFF999999),
-            ),
+            hintStyle: const TextStyle(fontSize: 16, color: Color(0xFF999999)),
             suffixIcon: widget.suffixWidget,
-            contentPadding: widget.contentPadding ??
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            contentPadding:
+                widget.contentPadding ??
+                EdgeInsets.symmetric(
+                  horizontal: isTablet() ? 10.w : 16.w,
+                  vertical: isTablet() ? 10.h : 14.h,
+                ),
 
             // Border styling
             border: OutlineInputBorder(
@@ -156,18 +162,12 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100.r),
 
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 1.25,
-              ),
+              borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100.r),
 
-              borderSide: const BorderSide(
-                color: Colors.red,
-                width: 1.25,
-              ),
+              borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100.r),

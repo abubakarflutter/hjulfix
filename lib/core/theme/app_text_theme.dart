@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hjulfix_new/core/utils/media_query.dart';
 
 import '../app_resources/app_colors.dart';
 
@@ -13,69 +14,74 @@ class AppTextTheme {
   static const FontWeight bold = FontWeight.w700;
 
   // Create TextTheme with your Figma mapping
-  static TextTheme get textTheme =>  TextTheme(
+  static TextTheme get textTheme => TextTheme(
     // Headlines (24px → 11px)
-    displayLarge: TextStyle(     // Headline-01 (24px)
+    displayLarge: TextStyle(
+      // Headline-01 (24px)
       fontFamily: _fontFamily,
-      fontSize: 24.sp,
-      fontWeight: regular,       // Default to regular, override as needed
+      fontSize: isTablet() ? 19.sp : 24.sp,
+      fontWeight: regular, // Default to regular, override as needed
       color: AppColors.textPrimary,
     ),
-    displayMedium: TextStyle(    // Headline-02 (20px)
+    displayMedium: TextStyle(
+      // Headline-02 (20px)
       fontFamily: _fontFamily,
-      fontSize: 19.5.sp,
+      fontSize: isTablet() ? 13.sp : 19.5.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
-    displaySmall: TextStyle(     // Headline-03 (18px)
+    displaySmall: TextStyle(
+      // Headline-03 (18px)
       fontFamily: _fontFamily,
       fontSize: 18.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
-    headlineLarge: TextStyle(    // Headline-04 (16px)
+    headlineLarge: TextStyle(
+      // Headline-04 (16px)
       fontFamily: _fontFamily,
-      fontSize: 16.sp,
+      fontSize: isTablet() ? 13.sp : 16.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
-    headlineMedium: TextStyle(   // Headline-05 (14px)
+    headlineMedium: TextStyle(
+      // Headline-05 (14px)
       fontFamily: _fontFamily,
-      fontSize: 14.sp,
+      // fontSize: 14.sp,
+      fontSize: isTablet() ? 9.5.sp : 13.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
-    headlineSmall: TextStyle(    // Headline-06 (12px)
+    headlineSmall: TextStyle(
+      // Headline-06 (12px)
       fontFamily: _fontFamily,
       fontSize: 12.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
     ),
-    titleLarge: TextStyle(       // Headline-07 (11px)
+    titleLarge: TextStyle(
+      // Headline-07 (11px)
       fontFamily: _fontFamily,
-      fontSize: 11.75.sp,
+      // fontSize: 11.75.sp,
+      fontSize: isTablet() ? 8.sp : 11.5.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
     ),
 
     // Paragraphs
-    bodyLarge: TextStyle(        // Paragraph-Large (12px)
+    bodyLarge: TextStyle(
+      // Paragraph-Large (12px)
       fontFamily: _fontFamily,
       fontSize: 12.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
-    bodyMedium: TextStyle(       // Paragraph-Small (10px)
+    bodyMedium: TextStyle(
+      // Paragraph-Small (10px)
       fontFamily: _fontFamily,
       fontSize: 10.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
-
     ),
 
     // Unused styles (set to match closest equivalent)
