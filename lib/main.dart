@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'core/localization/language_provider.dart';
 import 'core/routes/app_router.dart';
 import 'core/services/cache_service.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/logging.dart';
 import 'core/utils/system_utils.dart';
-import 'features/shared/welcome/views/welcome_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +19,12 @@ void main() async {
   final cacheService = CacheService();
   await cacheService.init();
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(
+    ProviderScope(
+      overrides: [cacheServiceProvider.overrideWithValue(cacheService)],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -53,14 +59,14 @@ class _MyAppState extends State<MyApp> {
           themeMode: ThemeMode.light,
           builder: (context, child) {
             return MediaQuery(
-              data: MediaQuery.of(context)
-                  .copyWith(textScaler: TextScaler.noScaling),
+              data: MediaQuery.of(
+                context,
+              ).copyWith(textScaler: TextScaler.noScaling),
               child: child!,
             );
           },
         );
       },
     );
-
   }
 }

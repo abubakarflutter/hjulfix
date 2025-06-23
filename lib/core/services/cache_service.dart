@@ -1,11 +1,11 @@
 // core/cache/cache_service.dart
 import 'dart:convert';
+
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../constants/cache_constants.dart';
 
 class CacheService {
-
   late Box _cacheBox;
   late Box _authBox;
 
@@ -15,8 +15,33 @@ class CacheService {
     _authBox = await Hive.openBox(CacheConstants.authBoxName);
   }
 
+  // Language methods
+  Future<void> saveSelectedLanguage(String languageCode) async {
+    await _cacheBox.put(CacheConstants.languageDBKey, languageCode);
+    await _cacheBox.put(
+      CacheConstants.isFirstLaunchKey,
+      false,
+    ); // Mark as not first launch
+  }
+
+  String getSelectedLanguage() {
+    return _cacheBox.get(CacheConstants.languageDBKey, defaultValue: 'en');
+  }
+
+  bool hasSelectedLanguage() {
+    return _cacheBox.containsKey(CacheConstants.languageDBKey);
+  }
+
+  bool isFirstLaunch() {
+    return _cacheBox.get(CacheConstants.isFirstLaunchKey, defaultValue: true);
+  }
+
   // Cache API responses
-  Future<void> cacheResponse(String key, dynamic data, {Duration? timeout}) async {
+  Future<void> cacheResponse(
+    String key,
+    dynamic data, {
+    Duration? timeout,
+  }) async {
     final cacheData = {
       'data': data,
       'timestamp': DateTime.now().millisecondsSinceEpoch,
@@ -36,8 +61,9 @@ class CacheService {
       final timeout = cached['timeout'] as int?;
 
       if (timeout != null) {
-        final expiryTime = DateTime.fromMillisecondsSinceEpoch(timestamp)
-            .add(Duration(milliseconds: timeout));
+        final expiryTime = DateTime.fromMillisecondsSinceEpoch(
+          timestamp,
+        ).add(Duration(milliseconds: timeout));
         if (DateTime.now().isAfter(expiryTime)) {
           _cacheBox.delete(key);
           return null;

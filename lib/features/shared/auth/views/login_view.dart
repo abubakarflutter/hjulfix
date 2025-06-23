@@ -28,8 +28,7 @@ class LoginView extends ConsumerWidget {
             padding: const EdgeInsets.only(top: 6),
             child: Image.asset(
               'assets/logo/hjulfix.png',
-              width: isTablet() ? 80.w : 175.w,
-              // fit: BoxFit.fitHeight,
+              width: isTablet() ? 80.w : 165.w,
             ),
           ),
         ),

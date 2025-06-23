@@ -81,7 +81,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
                 widget.labelStyle ??
                 FigmaTextStyles.headline07Medium.copyWith(
                   color: AppColors.textSecondaryGreyish,
-                  fontSize: 7.5.sp,
+                  fontSize: isTablet() ? 7.5.sp : 11.sp,
                 ),
             // TextStyle(
             //   fontSize: 11.5.sp,

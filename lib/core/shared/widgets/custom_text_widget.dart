@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppText extends StatelessWidget {
-  final String text;
+import '../../localization/language_provider.dart';
+import '../../localization/translation_data.dart';
+import '../../localization/translation_keys.dart';
+
+class AppText extends ConsumerWidget {
+  // Accept both String and TranslationKeys
+  final dynamic text; // Can be String or TranslationKeys
   final bool translatable;
   final TextStyle? style;
   final double? fontSize;
@@ -16,22 +22,22 @@ class AppText extends StatelessWidget {
   final Function? onTap;
 
   const AppText(
-      this.text, {
-        super.key,
-        this.translatable = true,
-        this.style,
-        this.fontSize,
-        this.fontWeight,
-        this.color,
-        this.height,
-        this.textAlign,
-        this.maxLines,
-        this.overflow,
-        this.onTap,
-      });
+    this.text, {
+    super.key,
+    this.translatable = true,
+    this.style,
+    this.fontSize,
+    this.fontWeight,
+    this.color,
+    this.height,
+    this.textAlign,
+    this.maxLines,
+    this.overflow,
+    this.onTap,
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     TextStyle finalStyle = style ?? const TextStyle();
 
     // Apply style overrides conditionally using copyWith
@@ -43,14 +49,14 @@ class AppText extends StatelessWidget {
     );
 
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         HapticFeedback.lightImpact();
-        if(onTap != null) {
+        if (onTap != null) {
           onTap!();
         }
       },
       child: Text(
-        translatable ? _translate(text) : text,
+        _getDisplayText(ref),
         style: finalStyle,
         textAlign: textAlign,
         maxLines: maxLines,
@@ -59,14 +65,22 @@ class AppText extends StatelessWidget {
     );
   }
 
-  /// Replace this with your localization logic or `.tr()` from easy_localization/getx
-  String _translate(String key) {
-    // Example for getx:
-    // return key.tr;
+  String _getDisplayText(WidgetRef ref) {
+    if (!translatable) {
+      // If not translatable, return as string regardless of type
+      return text.toString();
+    }
 
-    // Example for easy_localization:
-    // return key.tr();
-
-    return key; // fallback: return the raw string
+    if (text is TranslationKeys) {
+      // FIXED: Use ref.watch() to listen to language changes and get translation directly
+      final currentLanguage = ref.watch(languageProvider);
+      return TranslationData.getText(currentLanguage, text as TranslationKeys);
+    } else if (text is String) {
+      // If it's a string, return as is (for backward compatibility)
+      return text as String;
+    } else {
+      // Fallback
+      return text.toString();
+    }
   }
 }

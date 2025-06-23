@@ -9,8 +9,14 @@ import 'package:hjulfix_new/core/utils/media_query.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
+import '../../../../core/localization/language_model.dart';
+import '../../../../core/localization/language_provider.dart';
+import '../../../../core/localization/translation_keys.dart';
 import '../../../../core/routes/route_paths.dart';
+import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../test_button.dart';
+import '../providers/state_providers.dart';
+import '../widgets/lang_selection.dart';
 
 class WelcomeView extends ConsumerWidget {
   const WelcomeView({super.key});
@@ -33,7 +39,10 @@ class WelcomeView extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('Welcome to', style: FigmaTextStyles.headline01Bold),
+                  AppText(
+                    TranslationKeys.welcomeTo,
+                    style: FigmaTextStyles.headline01Bold,
+                  ),
                   6.horizontalSpace,
                   Image.asset(
                     'assets/logo/hjulfix-without-wheel.png',
@@ -102,89 +111,54 @@ class WelcomeView extends ConsumerWidget {
                       ),
                     ),
                     16.verticalSpace,
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: isTablet() ? 12.w : 16.w,
-                              vertical: isTablet() ? 10.h : 14.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                color: AppColors.borderColor,
-                                width: 1.0,
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  'assets/images/lang-english.png',
-                                  height: isTablet() ? 19.sp : 28.sp,
-                                ),
-                                14.verticalSpace,
-                                const Divider(
-                                  color: AppColors.borderColor,
-                                  height: 0,
-                                  thickness: 0.75,
-                                ),
-                                16.verticalSpace,
-                                Text(
-                                  'English',
-                                  style: FigmaTextStyles.headline05Bold,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final currentLanguage = ref.watch(languageProvider);
 
-                        12.horizontalSpace,
-                        Expanded(
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: isTablet() ? 12.w : 16.w,
-                              vertical: isTablet() ? 10.h : 14.h,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(
-                                color: AppColors.borderColor,
-                                width: 1.0,
+                        return Row(
+                          children: Language.supportedLanguages.map((language) {
+                            return Expanded(
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  right:
+                                      language ==
+                                          Language.supportedLanguages.last
+                                      ? 0
+                                      : 12.w,
+                                ),
+                                child: LanguageSelectionCard(
+                                  language: language,
+                                  isSelected: currentLanguage == language.code,
+                                  onTap: () async {
+                                    // Change language instantly
+                                    await ref
+                                        .read(languageProvider.notifier)
+                                        .changeLanguage(language.code);
+                                  },
+                                ),
                               ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Image.asset(
-                                  'assets/images/lang-danish.png',
-                                  height: isTablet() ? 19.sp : 28.sp,
-                                ),
-                                14.verticalSpace,
-                                const Divider(
-                                  color: AppColors.borderColor,
-                                  height: 0,
-                                  thickness: 0.75,
-                                ),
-                                16.verticalSpace,
-                                Text(
-                                  'Danish',
-                                  style: FigmaTextStyles.headline05Bold,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                            );
+                          }).toList(),
+                        );
+                      },
                     ),
                     24.verticalSpace,
-                    CustomButton(
-                      text: "Continue",
-                      onPressed: () {
-                        context.push(RoutePaths.login);
+                    Consumer(
+                      builder: (context, ref, child) {
+                        final isLoading = ref.watch(localLoaderProvider);
+                        return CustomButton(
+                          text: "Continue",
+                          isLoading: isLoading,
+                          onPressed: () async {
+                            ref.read(localLoaderProvider.notifier).state = true;
+                            await Future.delayed(Duration(milliseconds: 1000));
+                            ref.read(localLoaderProvider.notifier).state =
+                                false;
+                            if (context.mounted) {
+                              context.push(RoutePaths.login);
+                            }
+                          },
+                        );
                       },
                     ),
                   ],
