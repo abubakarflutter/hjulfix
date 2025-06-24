@@ -75,6 +75,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/icons/bottom_nav_icons/
     - assets/images/
     - assets/logo/
     - assets/native_splash/
