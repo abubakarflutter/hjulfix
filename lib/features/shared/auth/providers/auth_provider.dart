@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../../core/shared/providers/app_global_providers.dart';
 import '../models/auth_model.dart';
 import '../repo/auth_repo.dart';
 
@@ -30,22 +31,22 @@ class LoginNotifier extends _$LoginNotifier {
     );
   }
 
-  Future<void> logout() async {
-    state = const AsyncValue.loading();
-
-    final repository = ref.read(authRepositoryProvider);
-    final result = await repository.logout();
-
-    result.fold(
-      (failure) {
-        state = AsyncValue.error(failure.message, StackTrace.current);
-      },
-      (message) {
-        state = const AsyncValue.data(null);
-        ref.read(authStateProvider.notifier).logout();
-      },
-    );
-  }
+  // Future<void> logout() async {
+  //   state = const AsyncValue.loading();
+  //
+  //   final repository = ref.read(authRepositoryProvider);
+  //   final result = await repository.logout();
+  //
+  //   result.fold(
+  //     (failure) {
+  //       state = AsyncValue.error(failure.message, StackTrace.current);
+  //     },
+  //     (message) {
+  //       state = const AsyncValue.data(null);
+  //       ref.read(authStateProvider.notifier).logout();
+  //     },
+  //   );
+  // }
 }
 
 @riverpod

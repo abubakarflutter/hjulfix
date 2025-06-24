@@ -1,23 +1,25 @@
 // Core providers
 import 'package:connectivity_plus/connectivity_plus.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import '../../network/api_client.dart';
 import '../../network/network_info.dart';
 import '../../services/cache_service.dart';
 
 part 'app_global_providers.g.dart';
 
 @riverpod
-CacheService cacheService(CacheServiceRef ref) {
+CacheService cacheService(Ref ref) {
   return CacheService();
 }
 
 @riverpod
-NetworkInfo networkInfo(NetworkInfoRef ref) {
+NetworkInfo networkInfo(Ref ref) {
   return NetworkInfoImpl(Connectivity());
 }
 
 @riverpod
-ApiClient apiClient(ApiClientRef ref) {
+ApiClient apiClient(Ref ref) {
   return ApiClient(
     networkInfo: ref.read(networkInfoProvider),
     cacheService: ref.read(cacheServiceProvider),

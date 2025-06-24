@@ -240,30 +240,155 @@ class ApiClient {
 
   NetworkFailure _handleHttpError(Response response) {
     final statusCode = response.statusCode ?? 0;
-    final message = response.data?.toString() ?? 'Unknown error';
+
+    // Extract message from response body with fallbacks
+    String extractedMessage = _extractErrorMessage(response.data);
 
     switch (statusCode) {
       case 400:
-        return ServerFailure('Bad request: $message', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Bad request: $extractedMessage'
+                : 'Bad request',
+            statusCode: statusCode
+        );
+
       case 401:
-        return ServerFailure('Unauthorized access', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? extractedMessage
+                : 'Unauthorized access',
+            statusCode: statusCode
+        );
+
       case 403:
-        return ServerFailure('Access forbidden', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? extractedMessage
+                : 'Access forbidden',
+            statusCode: statusCode
+        );
+
       case 404:
-        return ServerFailure('Resource not found', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? extractedMessage
+                : 'Resource not found',
+            statusCode: statusCode
+        );
+
       case 422:
-        return ServerFailure('Validation error: $message', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Validation error: $extractedMessage'
+                : 'Validation error',
+            statusCode: statusCode
+        );
+
       case 500:
-        return ServerFailure('Internal server error', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Server error: $extractedMessage'
+                : 'Internal server error',
+            statusCode: statusCode
+        );
+
       case 502:
-        return ServerFailure('Bad gateway', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Bad gateway: $extractedMessage'
+                : 'Bad gateway',
+            statusCode: statusCode
+        );
+
       case 503:
-        return ServerFailure('Service unavailable', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Service unavailable: $extractedMessage'
+                : 'Service unavailable',
+            statusCode: statusCode
+        );
+
       default:
-        return ServerFailure('Server error: $message', statusCode: statusCode);
+        return ServerFailure(
+            extractedMessage.isNotEmpty
+                ? 'Server error: $extractedMessage'
+                : 'Unknown server error',
+            statusCode: statusCode
+        );
     }
   }
 
+// Helper method to extract error message from various response formats
+  String _extractErrorMessage(dynamic responseData) {
+    if (responseData == null) return '';
+
+    try {
+      // If response is already a string
+      if (responseData is String) {
+        return responseData.trim();
+      }
+
+      // If response is a Map (JSON object)
+      if (responseData is Map<String, dynamic>) {
+        // Try common error message keys in order of preference
+        final messageKeys = [
+          'message',
+          'error',
+          'detail',
+          'description',
+          'msg',
+          'error_description',
+          'errorMessage'
+        ];
+
+        for (String key in messageKeys) {
+          if (responseData.containsKey(key) && responseData[key] != null) {
+            final value = responseData[key];
+            if (value is String && value.trim().isNotEmpty) {
+              return value.trim();
+            }
+            if (value is List && value.isNotEmpty) {
+              return value.first.toString().trim();
+            }
+          }
+        }
+
+        // Check for nested errors (common in validation responses)
+        if (responseData.containsKey('errors') && responseData['errors'] is Map) {
+          final errors = responseData['errors'] as Map<String, dynamic>;
+          final firstError = errors.values.first;
+          if (firstError is List && firstError.isNotEmpty) {
+            return firstError.first.toString().trim();
+          }
+          if (firstError is String) {
+            return firstError.trim();
+          }
+        }
+
+        // If no specific message found, return a formatted version of the entire response
+        return responseData.toString();
+      }
+
+      // If response is a List
+      if (responseData is List && responseData.isNotEmpty) {
+        final firstItem = responseData.first;
+        if (firstItem is String) {
+          return firstItem.trim();
+        }
+        if (firstItem is Map<String, dynamic>) {
+          return _extractErrorMessage(firstItem);
+        }
+      }
+
+      // Fallback to string representation
+      return responseData.toString().trim();
+
+    } catch (e) {
+      // If anything goes wrong, return the string representation
+      return responseData.toString();
+    }
+  }
   String _getHttpMethod(HttpMethod method) {
     switch (method) {
       case HttpMethod.get:

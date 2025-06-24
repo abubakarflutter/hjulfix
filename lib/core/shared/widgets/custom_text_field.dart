@@ -108,7 +108,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
               widget.textStyle ??
               FigmaTextStyles.headline07Medium.copyWith(
                 // color: AppColors.textSecondaryGreyish,
-                fontSize: 8.5.sp,
+                fontSize: isTablet() ? 8.5.sp : 12.sp,
               ),
           // TextStyle(
           //   fontSize: 12.sp,
@@ -125,8 +125,8 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           cursorHeight: isTablet() ? 14.h : 16.h,
           cursorWidth: 1.75.w,
           decoration: InputDecoration(
-            hintText: widget.hintText,
-            hintStyle: const TextStyle(fontSize: 16, color: Color(0xFF999999)),
+            // hintText: widget.hintText,
+            // hintStyle: const TextStyle(fontSize: 16, color: Color(0xFF999999)),
             suffixIcon: widget.suffixWidget,
             contentPadding:
                 widget.contentPadding ??
@@ -179,6 +179,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
 
             // Remove default background color
             filled: true,
+            isDense: true,
             fillColor: widget.enabled ? Colors.white : const Color(0xFFF5F5F5),
           ),
         ),

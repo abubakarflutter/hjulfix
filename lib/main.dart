@@ -1,10 +1,14 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'core/localization/language_provider.dart';
+import 'core/network/api_client.dart';
+import 'core/network/network_info.dart';
 import 'core/routes/app_router.dart';
 import 'core/services/cache_service.dart';
+import 'core/shared/providers/app_global_providers.dart' hide cacheServiceProvider, apiClientProvider;
 import 'core/theme/app_theme.dart';
 import 'core/utils/logging.dart';
 import 'core/utils/system_utils.dart';
@@ -15,13 +19,31 @@ void main() async {
   // Initialize logger
   await Log.init();
 
-  // Initialize services service
+  // Initialize cache service
   final cacheService = CacheService();
   await cacheService.init();
 
+  // Initialize network info
+  final networkInfo = NetworkInfoImpl(Connectivity());
+
+  // Initialize API client with dependencies
+  final apiClient = ApiClient(
+    networkInfo: networkInfo,
+    cacheService: cacheService,
+  );
+
   runApp(
     ProviderScope(
-      overrides: [cacheServiceProvider.overrideWithValue(cacheService)],
+      overrides: [
+        // Override cache service with initialized instance
+        cacheServiceProvider.overrideWithValue(cacheService),
+
+        // Override network info with initialized instance
+        networkInfoProvider.overrideWithValue(networkInfo),
+
+        // Override API client with initialized instance
+        apiClientProvider.overrideWithValue(apiClient),
+      ],
       child: MyApp(),
     ),
   );

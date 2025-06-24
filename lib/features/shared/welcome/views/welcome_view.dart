@@ -15,6 +15,7 @@ import '../../../../core/localization/translation_keys.dart';
 import '../../../../core/routes/route_paths.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../test_button.dart';
+import '../../auth/repo/auth_repo.dart';
 import '../providers/state_providers.dart';
 import '../widgets/lang_selection.dart';
 
@@ -145,6 +146,8 @@ class WelcomeView extends ConsumerWidget {
                     24.verticalSpace,
                     Consumer(
                       builder: (context, ref, child) {
+                        final authRepo = ref.read(authRepositoryProvider);
+                        final isLoggedIn = authRepo.isLoggedIn();
                         final isLoading = ref.watch(localLoaderProvider);
                         return CustomButton(
                           text: "Continue",
@@ -155,6 +158,9 @@ class WelcomeView extends ConsumerWidget {
                             ref.read(localLoaderProvider.notifier).state =
                                 false;
                             if (context.mounted) {
+                              isLoggedIn ?
+                              context.push(RoutePaths.adminBottomNav)
+                                  :
                               context.push(RoutePaths.login);
                             }
                           },
