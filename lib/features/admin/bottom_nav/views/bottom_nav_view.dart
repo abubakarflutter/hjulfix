@@ -74,7 +74,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
                   );
                 }
                 return TextStyle(
-                  color: Color(0xff8F959E),
+                  color: AppColors.textSecondaryGreyish.withValues(alpha: .5),
                   fontFamily: "Montserrat",
                   fontSize: 10.25.sp,
                   fontWeight: FontWeight.w500
@@ -178,6 +178,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
           SvgPicture.asset(
             icon,
             height: outlineIconSize.h,
+            colorFilter: ColorFilter.mode(AppColors.textSecondaryGreyish.withValues(alpha: .5), BlendMode.srcIn),
           )
         ],
       ),
