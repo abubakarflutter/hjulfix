@@ -24,156 +24,154 @@ class WelcomeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return BaseScaffold(
-      page: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: Colors.white),
-        body: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                'assets/logo/welcome_screen_wheel.jpg',
-                height: 250.h,
-                fit: BoxFit.contain,
+    return VersatileScaffold(
+      isWhitetBar: true,
+      isSimpleBar: true,
+      body: Center(
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/logo/welcome_screen_wheel.jpg',
+              height: 250.h,
+              fit: BoxFit.contain,
+            ),
+            20.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  TranslationKeys.welcomeTo,
+                  style: FigmaTextStyles.headline01Bold,
+                ),
+                6.horizontalSpace,
+                Image.asset(
+                  'assets/logo/hjulfix-without-wheel.png',
+                  width: isTablet() ? 80.w : 110.w,
+                ),
+              ],
+            ),
+            6.verticalSpace,
+            Text(
+              'Professional rim renovation and powder coating',
+              style: FigmaTextStyles.headline07Medium.copyWith(
+                color: AppColors.textGreyishDark,
               ),
-              20.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              // style: TextStyle(
+              //   color: Color(0xff6C7278),
+              //   fontFamily: AppConfigs.appFontFamily,
+              //   fontSize: 12.sp,
+              //   fontWeight: FontWeight.w500,
+              // ),
+            ),
+            const Spacer(),
+
+            Container(
+              padding: EdgeInsets.all(AppDimensions.viewHorizontalPadding),
+              margin: isTablet()
+                  ? null
+                  : EdgeInsets.symmetric(horizontal: 20.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.r),
+                gradient: LinearGradient(
+                  colors: [const Color(0xFFF7F7F7), const Color(0xFFFFFFFF)],
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  // stops: [0.0, 1.0],
+                  // tileMode: TileMode.clamp
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AppText(
-                    TranslationKeys.welcomeTo,
-                    style: FigmaTextStyles.headline01Bold,
+                  Container(
+                    padding: EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(7.8.r),
+                      border: Border.all(
+                        color: AppColors.borderColor,
+                        width: 0.78,
+                      ),
+                    ),
+                    child: SvgPicture.asset(
+                      'assets/icons/lang-icon.svg',
+                      height: isTablet() ? 16.sp : 22.sp,
+                      // colorFilter: ColorFilter.mode(Colors., blendMode),
+                    ),
                   ),
-                  6.horizontalSpace,
-                  Image.asset(
-                    'assets/logo/hjulfix-without-wheel.png',
-                    width: isTablet() ? 80.w : 110.w,
+                  12.verticalSpace,
+                  Text(
+                    'Select Language',
+                    style: FigmaTextStyles.headline04Bold,
+                  ),
+                  2.verticalSpace,
+                  Text(
+                    'Choose your favorite language',
+                    style: FigmaTextStyles.headline07Medium.copyWith(
+                      color: AppColors.textGreyishDark,
+                    ),
+                  ),
+                  16.verticalSpace,
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final currentLanguage = ref.watch(languageProvider);
+
+                      return Row(
+                        children: Language.supportedLanguages.map((language) {
+                          return Expanded(
+                            child: Padding(
+                              padding: EdgeInsets.only(
+                                right:
+                                language ==
+                                    Language.supportedLanguages.last
+                                    ? 0
+                                    : 12.w,
+                              ),
+                              child: LanguageSelectionCard(
+                                language: language,
+                                isSelected: currentLanguage == language.code,
+                                onTap: () async {
+                                  // Change language instantly
+                                  await ref
+                                      .read(languageProvider.notifier)
+                                      .changeLanguage(language.code);
+                                },
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      );
+                    },
+                  ),
+                  24.verticalSpace,
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final authRepo = ref.read(authRepositoryProvider);
+                      final isLoggedIn = authRepo.isLoggedIn();
+                      final isLoading = ref.watch(localLoaderProvider);
+                      return CustomButton(
+                        text: "Continue",
+                        isLoading: isLoading,
+                        onPressed: () async {
+                          ref.read(localLoaderProvider.notifier).state = true;
+                          await Future.delayed(Duration(milliseconds: 1000));
+                          ref.read(localLoaderProvider.notifier).state =
+                          false;
+                          if (context.mounted) {
+                            isLoggedIn ?
+                            context.push(RoutePaths.adminBottomNav)
+                                :
+                            context.push(RoutePaths.login);
+                          }
+                        },
+                      );
+                    },
                   ),
                 ],
               ),
-              6.verticalSpace,
-              Text(
-                'Professional rim renovation and powder coating',
-                style: FigmaTextStyles.headline07Medium.copyWith(
-                  color: AppColors.textSecondaryGreyish,
-                ),
-                // style: TextStyle(
-                //   color: Color(0xff6C7278),
-                //   fontFamily: AppConfigs.appFontFamily,
-                //   fontSize: 12.sp,
-                //   fontWeight: FontWeight.w500,
-                // ),
-              ),
-              const Spacer(),
-
-              Container(
-                padding: EdgeInsets.all(AppDimensions.viewHorizontalPadding),
-                margin: isTablet()
-                    ? null
-                    : EdgeInsets.symmetric(horizontal: 20.w),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.r),
-                  gradient: LinearGradient(
-                    colors: [const Color(0xFFF7F7F7), const Color(0xFFFFFFFF)],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    // stops: [0.0, 1.0],
-                    // tileMode: TileMode.clamp
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(7.8.r),
-                        border: Border.all(
-                          color: AppColors.borderColor,
-                          width: 0.78,
-                        ),
-                      ),
-                      child: SvgPicture.asset(
-                        'assets/icons/lang-icon.svg',
-                        height: isTablet() ? 16.sp : 22.sp,
-                        // colorFilter: ColorFilter.mode(Colors., blendMode),
-                      ),
-                    ),
-                    12.verticalSpace,
-                    Text(
-                      'Select Language',
-                      style: FigmaTextStyles.headline04Bold,
-                    ),
-                    2.verticalSpace,
-                    Text(
-                      'Choose your favorite language',
-                      style: FigmaTextStyles.headline07Medium.copyWith(
-                        color: AppColors.textSecondaryGreyish,
-                      ),
-                    ),
-                    16.verticalSpace,
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final currentLanguage = ref.watch(languageProvider);
-
-                        return Row(
-                          children: Language.supportedLanguages.map((language) {
-                            return Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  right:
-                                      language ==
-                                          Language.supportedLanguages.last
-                                      ? 0
-                                      : 12.w,
-                                ),
-                                child: LanguageSelectionCard(
-                                  language: language,
-                                  isSelected: currentLanguage == language.code,
-                                  onTap: () async {
-                                    // Change language instantly
-                                    await ref
-                                        .read(languageProvider.notifier)
-                                        .changeLanguage(language.code);
-                                  },
-                                ),
-                              ),
-                            );
-                          }).toList(),
-                        );
-                      },
-                    ),
-                    24.verticalSpace,
-                    Consumer(
-                      builder: (context, ref, child) {
-                        final authRepo = ref.read(authRepositoryProvider);
-                        final isLoggedIn = authRepo.isLoggedIn();
-                        final isLoading = ref.watch(localLoaderProvider);
-                        return CustomButton(
-                          text: "Continue",
-                          isLoading: isLoading,
-                          onPressed: () async {
-                            ref.read(localLoaderProvider.notifier).state = true;
-                            await Future.delayed(Duration(milliseconds: 1000));
-                            ref.read(localLoaderProvider.notifier).state =
-                                false;
-                            if (context.mounted) {
-                              isLoggedIn ?
-                              context.push(RoutePaths.adminBottomNav)
-                                  :
-                              context.push(RoutePaths.login);
-                            }
-                          },
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
-      ),
+      ), title: '',
     );
   }
 }

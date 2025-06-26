@@ -12,6 +12,7 @@ class AppTextTheme {
   static const FontWeight medium = FontWeight.w500;
   static const FontWeight semiBold = FontWeight.w600;
   static const FontWeight bold = FontWeight.w700;
+  static const FontWeight extraBold = FontWeight.w900;
 
   // Create TextTheme with your Figma mapping
   static TextTheme get textTheme => TextTheme(
@@ -125,4 +126,5 @@ extension TextStyleExtensions on TextStyle {
   TextStyle get medium => copyWith(fontWeight: AppTextTheme.medium);
   TextStyle get semiBold => copyWith(fontWeight: AppTextTheme.semiBold);
   TextStyle get bold => copyWith(fontWeight: AppTextTheme.bold);
+  TextStyle get extraBold => copyWith(fontWeight: AppTextTheme.extraBold);
 }

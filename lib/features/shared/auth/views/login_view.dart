@@ -7,6 +7,7 @@ import 'package:hjulfix_new/core/utils/media_query.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
+import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../test_button.dart';
@@ -85,16 +86,21 @@ class _LoginViewState extends ConsumerState<LoginView> {
       );
     });
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: Image.asset(
-            'assets/logo/hjulfix.png',
-            width: isTablet() ? 80.w : 165.w,
-          ),
-        ),
-      ),
+    return VersatileScaffold(
+      // appBar: AppBar(
+      //   title: Padding(
+      //     padding: const EdgeInsets.only(top: 6),
+      //     child: Image.asset(
+      //       'assets/logo/hjulfix.png',
+      //       width: isTablet() ? 80.w : 165.w,
+      //     ),
+      //   ),
+      // ),
+      title: "",
+      showBack: true,
+      isSimpleBar: true,
+      addCenterLogo: true,
+      isWhitetBar: true,
       body: AutofillGroup(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
@@ -114,7 +120,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 AppText(
                   'Enter your email and password to log in',
                   style: FigmaTextStyles.headline07Medium.copyWith(
-                    color: AppColors.textSecondaryGreyish,
+                    color: AppColors.textGreyishDark,
                   ),
                 ),
                 34.verticalSpace,
@@ -161,7 +167,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(2.r),
                             border: Border.all(
-                              color: AppColors.textSecondaryGreyish,
+                              color: AppColors.textGreyishDark,
                             ),
                           ),
                         ),
@@ -169,7 +175,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         AppText(
                           'Remember me',
                           style: FigmaTextStyles.headline07Medium.copyWith(
-                            color: AppColors.textSecondaryGreyish,
+                            color: AppColors.textGreyishDark,
                           ),
                         ),
                       ],
@@ -200,7 +206,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     Text(
                       'Don\'t have an account?',
                       style: FigmaTextStyles.headline07Medium.copyWith(
-                        color: AppColors.textSecondaryGreyish,
+                        color: AppColors.textGreyishDark,
                       ),
                     ),
                     6.horizontalSpace,

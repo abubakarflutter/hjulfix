@@ -92,3 +92,5 @@ flutter:
           weight: 600
         - asset: assets/fonts/Montserrat-Bold.ttf
           weight: 700
+        - asset: assets/fonts/Montserrat-ExtraBold.ttf
+          weight: 900

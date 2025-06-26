@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hjulfix_new/core/app_resources/app_assets.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
+import '../../dashboard/views/dashboard_view.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
@@ -18,9 +19,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
 
   int index = 0;
   List<Widget> screens = const [
-    Center(
-      child: Text('Dashboard'),
-    ),
+    DashboardView(),
     Center(
       child: Text('Vehicles'),
     ),
@@ -74,7 +73,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
                   );
                 }
                 return TextStyle(
-                  color: AppColors.textSecondaryGreyish.withValues(alpha: .5),
+                  color: AppColors.textGreyishDark.withValues(alpha: .5),
                   fontFamily: "Montserrat",
                   fontSize: 10.25.sp,
                   fontWeight: FontWeight.w500
@@ -178,7 +177,7 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
           SvgPicture.asset(
             icon,
             height: outlineIconSize.h,
-            colorFilter: ColorFilter.mode(AppColors.textSecondaryGreyish.withValues(alpha: .5), BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(AppColors.textGreyishDark.withValues(alpha: .5), BlendMode.srcIn),
           )
         ],
       ),
