@@ -7,6 +7,7 @@ class AppColors {
   static const textGreyishDark = Color(0xff6C7278);
   static const textGreyishLight = Color(0xffC0C0C0);
   static const borderColor = Color(0xffD7D7D7);
+  static const borderColorLight = Color(0xffE6E6E6);
   static const scaffoldBGColor = Color(0xffF7F7F7);
 
   //------ Component Specific

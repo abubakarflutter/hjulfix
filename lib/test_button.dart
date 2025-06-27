@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_multiple_loaders/flutter_multiple_loaders.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 import 'core/app_resources/app_colors.dart';
-import 'core/configs/app_configs.dart';
+import 'core/localization/language_provider.dart';
+import 'core/localization/translation_data.dart';
+import 'core/localization/translation_keys.dart';
 import 'core/utils/media_query.dart';
 
-class CustomButton extends StatefulWidget {
+class CustomButton extends ConsumerStatefulWidget {
   /// The text to display on the button
-  final String text;
+  final dynamic text;
 
   /// Callback function when the button is pressed
   final VoidCallback? onPressed;
@@ -38,16 +41,16 @@ class CustomButton extends StatefulWidget {
     this.isLoading = false,
     this.backgroundColor,
     this.margin,
-    this.borderRadius = 100.0,
+    this.borderRadius = 10.0,
     this.scaleCoefficient = 0.92,
     this.duration = 1000,
   }) : assert(scaleCoefficient >= 0.0 && scaleCoefficient <= 1.0);
 
   @override
-  CustomButtonState createState() => CustomButtonState();
+  ConsumerState createState() => CustomButtonState();
 }
 
-class CustomButtonState extends State<CustomButton>
+class CustomButtonState extends ConsumerState<CustomButton>
     with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> animation;
@@ -130,7 +133,7 @@ class CustomButtonState extends State<CustomButton>
                 ? () => springUp()
                 : null,
             child: Container(
-              height: isTablet() ? 40.h : 45.h,
+              height: isTablet() ? 40.h : 44.h,
               // height: 45.h,
               width: double.infinity,
               // padding: EdgeInsets.symmetric(
@@ -177,14 +180,19 @@ class CustomButtonState extends State<CustomButton>
                         ),
                       )
                     : Text(
-                        widget.text,
-                        style: TextStyle(
-                          color: AppColors.buttonTextColor,
-                          fontFamily: AppConfigs.appFontFamily,
-                          // fontSize: 14.sp,
-                          fontSize: isTablet() ? 8.5.sp : 14.sp,
-                          fontWeight: FontWeight.w600,
-                        ),
+                    _getDisplayText(ref),
+
+                    style: FigmaTextStyles.headline06SemiBold.copyWith(
+                          color: Colors.white,
+                          fontSize: isTablet() ? 8.5.sp : 13.sp,
+                        )
+                        // TextStyle(
+                        //   color: AppColors.buttonTextColor,
+                        //   fontFamily: AppConfigs.appFontFamily,
+                        //   // fontSize: 14.sp,
+                        //   fontSize: isTablet() ? 8.5.sp : 13.sp,
+                        //   fontWeight: FontWeight.w600,
+                        // ),
                       ),
               ),
             ),
@@ -193,4 +201,24 @@ class CustomButtonState extends State<CustomButton>
       },
     );
   }
+
+  String _getDisplayText(WidgetRef ref) {
+    // if (!translatable) {
+    //   // If not translatable, return as string regardless of type
+    //   return widget.text.toString();
+    // }
+
+    if (widget.text is TranslationKeys) {
+      // FIXED: Use ref.watch() to listen to language changes and get translation directly
+      final currentLanguage = ref.watch(languageProvider);
+      return TranslationData.getText(currentLanguage, widget.text as TranslationKeys);
+    } else if (widget.text is String) {
+      // If it's a string, return as is (for backward compatibility)
+      return widget.text as String;
+    } else {
+      // Fallback
+      return widget.text.toString();
+    }
+  }
+
 }

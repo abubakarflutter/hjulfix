@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hjulfix_new/core/app_resources/app_dimens.dart';
 import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 
+import '../../../../core/app_resources/app_assets.dart';
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/shared/widgets/base_scaffold.dart';
 
@@ -15,7 +16,15 @@ class DashboardView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return VersatileScaffold(
       title: "Dashboard",
-      subtitle: "Manage and track dealer offers with ease.",
+      subtitle: "Track offers and job stats",
+      actions: [
+        BarActionButton(
+          iconPath: AppAssets.bellIcon,
+          margin: EdgeInsets.only(
+            right: 14.w,
+          ),
+        ),
+      ],
       body: Padding(
         padding:  EdgeInsets.symmetric(
           horizontal: AppDimensions.viewHorizontalPadding,
@@ -23,6 +32,8 @@ class DashboardView extends ConsumerWidget {
         ),
         child: Column(
           children: [
+            8.verticalSpace,
+
 
             //----- Job Overview Section
             Column(
@@ -31,33 +42,33 @@ class DashboardView extends ConsumerWidget {
                 Text('Jobs Overview',
                   style: FigmaTextStyles.headline06Bold,
                 ),
-                12.verticalSpace,
+                16.verticalSpace,
                 HomeStats(
                   title: "Not Started",
                   amount: "1584.0",
-                  number: "282",
+                  number: "29",
                   iconBgColor: Color(0xff3B7DED),
                   iconPath: "assets/icons/not-started.svg",
                 ),
-                12.verticalSpace,
+                10.verticalSpace,
                 Row(
                   children: [
                     Expanded(
                       child: HomeStats(
                         title: "On Going",
                         amount: "1584.0",
-                        number: "282",
+                        number: "17",
                         iconBgColor: Color(0xff009688),
 
                         iconPath: "assets/icons/on-going.svg",
                       ),
                     ),
-                    12.horizontalSpace,
+                    10.horizontalSpace,
                     Expanded(
                       child: HomeStats(
                         title: "Ready",
                         amount: "1584.0",
-                        number: "282",
+                        number: "24",
                         iconBgColor: Color(0xffFF7954),
                         iconPath: "assets/icons/check.svg",
                       ),
@@ -67,7 +78,7 @@ class DashboardView extends ConsumerWidget {
               ],
             ),
 
-            20.verticalSpace,
+            18.verticalSpace,
 
             //----- Stats by Time Section
             Column(
@@ -76,7 +87,7 @@ class DashboardView extends ConsumerWidget {
                 Text('Delivered',
                   style: FigmaTextStyles.headline06Bold,
                 ),
-                12.verticalSpace,
+                16.verticalSpace,
                 Row(
                   children: [
                     Expanded(
@@ -86,32 +97,35 @@ class DashboardView extends ConsumerWidget {
                         number: "25",
                       ),
                     ),
-                    12.horizontalSpace,
+                    10.horizontalSpace,
+
                     Expanded(
                       child: HomeStats(
-                        title: "Ready",
+                        title: "Weekly",
                         amount: "1584.0",
-                        number: "282",
+                        number: "180",
                       ),
                     ),
                   ],
                 ),
-                12.verticalSpace,
+                10.verticalSpace,
+
                 Row(
                   children: [
                     Expanded(
                       child: HomeStats(
-                        title: "Daily",
+                        title: "Monthly",
                         amount: "1584.0",
-                        number: "25",
+                        number: "1558",
                       ),
                     ),
-                    12.horizontalSpace,
+                    10.horizontalSpace,
+
                     Expanded(
                       child: HomeStats(
-                        title: "Ready",
+                        title: "Yearly",
                         amount: "1584.0",
-                        number: "282",
+                        number: "7872",
                       ),
                     ),
                   ],
@@ -119,6 +133,62 @@ class DashboardView extends ConsumerWidget {
               ],
             ),
 
+            18.verticalSpace,
+            //----- Customer Vehicles Overview Section
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Customer Vehicles Offers',
+                  style: FigmaTextStyles.headline06Bold,
+                ),
+                16.verticalSpace,
+                HomeStats(
+                  title: "Total",
+                  number: "287",
+                ),
+                10.verticalSpace,
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: HomeStats(
+                        title: "Sent",
+                        number: "41",
+                      ),
+                    ),
+                    10.horizontalSpace,
+
+                    Expanded(
+                      child: HomeStats(
+                        title: "Seen",
+                        number: "34",
+                      ),
+                    ),
+                  ],
+                ),
+                10.verticalSpace,
+
+                Row(
+                  children: [
+                    Expanded(
+                      child: HomeStats(
+                        title: "Accepted",
+                        number: "450",
+                      ),
+                    ),
+                    10.horizontalSpace,
+                    Expanded(
+                      child: HomeStats(
+                        title: "Rejected",
+                        number: "12",
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+
+            18.verticalSpace,
 
           ],
         ),
@@ -127,16 +197,43 @@ class DashboardView extends ConsumerWidget {
   }
 }
 
+class BarActionButton extends StatelessWidget {
+  final String iconPath;
+  final EdgeInsetsGeometry margin;
+  const BarActionButton({
+    super.key,
+    required this.iconPath,
+    required this.margin
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 34.h,
+      width: 34.h,
+      margin: margin,
+      padding: EdgeInsets.all(5).w,
+      decoration: BoxDecoration(
+        color: Colors.white.withValues(
+          alpha: .2
+        ),
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: SvgPicture.asset(iconPath),
+    );
+  }
+}
+
 class HomeStats extends StatelessWidget {
-  final String title, number, amount;
-  final String? iconPath;
+  final String title, number;
+  final String? iconPath, amount;
   final Color? iconBgColor;
 
   const HomeStats({
     super.key,
     required this.title,
     required this.number,
-    required this.amount,
+     this.amount,
      this.iconPath,
      this.iconBgColor,
   });
@@ -152,6 +249,15 @@ class HomeStats extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.borderColorLight.withValues(
+              alpha: .5
+            ),
+            blurRadius: 8,
+            spreadRadius: 0,
+          )
+        ]
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,12 +286,32 @@ class HomeStats extends StatelessWidget {
           ),
           iconPath  != null ?  5.verticalSpace : 7.verticalSpace,
 
-          iconPath  == null ?
+          amount == null ?
+
+          TweenAnimationBuilder<int>(
+            tween: IntTween(begin: 0, end: int.parse(number)),
+            duration: Duration(milliseconds: 1500),
+            builder: (context, value, child) {
+              return  Text(value.toString(),
+                style: FigmaTextStyles.headline02Bold,
+              );
+            },
+          )
+
+
+
+         : iconPath  == null ?
           Row(
             children: [
-              Text(number,
-                style: FigmaTextStyles.headline02Bold,
-                // style: FigmaTextStyles.headline01ExtraBold,
+              TweenAnimationBuilder<int>(
+                tween: IntTween(begin: 0, end: int.parse(number)),
+                duration: Duration(milliseconds: 1500),
+
+                builder: (context, value, child) {
+                  return  Text(value.toString(),
+                    style: FigmaTextStyles.headline02Bold,
+                  );
+                },
               ),
               8.horizontalSpace,
               SizedBox(
@@ -200,7 +326,7 @@ class HomeStats extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(amount,
+                  Text(amount ?? "",
                     style: FigmaTextStyles.headline05SemiBold.copyWith(
                         color: AppColors.textGreyishLight
                     ),
@@ -220,15 +346,20 @@ class HomeStats extends StatelessWidget {
               : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(number,
-                style: FigmaTextStyles.headline02Bold,
-                // style: FigmaTextStyles.headline01ExtraBold,
+              TweenAnimationBuilder<int>(
+                tween: IntTween(begin: 0, end: int.parse(number)),
+                duration: Duration(milliseconds: 1500),
+                builder: (context, value, child) {
+                  return  Text(value.toString(),
+                    style: FigmaTextStyles.headline02Bold,
+                  );
+                },
               ),
               5.verticalSpace,
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(amount,
+                  Text(amount ?? "",
                     style: FigmaTextStyles.headline05SemiBold.copyWith(
                         color: AppColors.textGreyishLight
                     ),

@@ -10,7 +10,7 @@ class GlobalTextField extends StatefulWidget {
   final String? labelText;
   final String? hintText;
   final bool isObscure;
-  final Widget? suffixWidget;
+  final Widget? suffixWidget, prefixWidget;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
@@ -28,6 +28,7 @@ class GlobalTextField extends StatefulWidget {
     this.hintText,
     this.isObscure = false,
     this.suffixWidget,
+    this.prefixWidget,
     this.controller,
     this.keyboardType,
     this.onChanged,
@@ -125,26 +126,32 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           cursorHeight: isTablet() ? 14.h : 16.h,
           cursorWidth: 1.75.w,
           decoration: InputDecoration(
-            // hintText: widget.hintText,
-            // hintStyle: const TextStyle(fontSize: 16, color: Color(0xFF999999)),
+            hintText: widget.hintText,
+            hintStyle: FigmaTextStyles.headline07Medium.copyWith(
+              color: AppColors.textGreyishLight
+            ),
             suffixIcon: widget.suffixWidget,
+            prefixIcon: widget.prefixWidget,
+            prefixIconConstraints: BoxConstraints(
+              maxHeight: 24.h,
+              // maxWidth: 20.h,
+            ),
             contentPadding:
                 widget.contentPadding ??
                 EdgeInsets.symmetric(
                   horizontal: isTablet() ? 10.w : 16.w,
-                  vertical: isTablet() ? 10.h : 14.h,
+                  vertical: isTablet() ? 10.h : 13.h,
                 ),
-
             // Border styling
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: const BorderSide(
                 color: Color(0xFFDDDDDD),
                 width: 1.0,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(10.r),
 
               borderSide: const BorderSide(
                 color: Color(0xFFDDDDDD),
@@ -152,7 +159,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(10.r),
 
               borderSide: const BorderSide(
                 color: AppColors.primary,
@@ -160,7 +167,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(10.r),
 
               borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
@@ -170,7 +177,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
               borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
             disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(100.r),
+              borderRadius: BorderRadius.circular(10.r),
               borderSide: const BorderSide(
                 color: Color(0xFFE0E0E0),
                 width: 1.0,

@@ -51,17 +51,11 @@ class WelcomeView extends ConsumerWidget {
               ],
             ),
             6.verticalSpace,
-            Text(
-              'Professional rim renovation and powder coating',
+            AppText(
+              TranslationKeys.professionalRimRenovation,
               style: FigmaTextStyles.headline07Medium.copyWith(
                 color: AppColors.textGreyishDark,
               ),
-              // style: TextStyle(
-              //   color: Color(0xff6C7278),
-              //   fontFamily: AppConfigs.appFontFamily,
-              //   fontSize: 12.sp,
-              //   fontWeight: FontWeight.w500,
-              // ),
             ),
             const Spacer(),
 
@@ -99,13 +93,15 @@ class WelcomeView extends ConsumerWidget {
                     ),
                   ),
                   12.verticalSpace,
-                  Text(
-                    'Select Language',
+                  AppText(
+                    TranslationKeys.selectLanguage,
+
                     style: FigmaTextStyles.headline04Bold,
                   ),
                   2.verticalSpace,
-                  Text(
-                    'Choose your favorite language',
+                  AppText(
+                    TranslationKeys.chooseFavoriteLanguage,
+
                     style: FigmaTextStyles.headline07Medium.copyWith(
                       color: AppColors.textGreyishDark,
                     ),
@@ -149,7 +145,7 @@ class WelcomeView extends ConsumerWidget {
                       final isLoggedIn = authRepo.isLoggedIn();
                       final isLoading = ref.watch(localLoaderProvider);
                       return CustomButton(
-                        text: "Continue",
+                        text: TranslationKeys.continueButton,
                         isLoading: isLoading,
                         onPressed: () async {
                           ref.read(localLoaderProvider.notifier).state = true;

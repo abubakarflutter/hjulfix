@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 import 'package:hjulfix_new/core/utils/media_query.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
+import '../../../../core/routes/route_paths.dart';
 import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
@@ -62,13 +64,15 @@ class _LoginViewState extends ConsumerState<LoginView> {
     // Listen for state changes to handle success/error
     ref.listen<AsyncValue<AuthModel?>>(loginNotifierProvider, (previous, next) {
       next.when(
-        data: (authModel) {
+        data: (authModel) async {
           if (authModel != null) {
             // Login successful - navigate to next screen
             // context.go(RoutePaths.dashboard); // or wherever you want to navigate
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Login successful!')),
-            );
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   const SnackBar(content: Text('Login successful!')),
+            // );
+            // await Future.delayed(const Duration(seconds: 1));
+            if(context.mounted) context.push(RoutePaths.adminBottomNav);
           }
         },
         error: (error, stackTrace) {

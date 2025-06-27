@@ -1,6 +1,8 @@
 class AppAssets {
   ///------- App Images
-  ///------- App Icons
+
+  ///------- App Icons ---------///
+  //---- Bottom Nav
   static  const navHomeOutlineIcon = 'assets/icons/bottom_nav_icons/home-outline.svg';
   static  const navHomeFilledIcon = 'assets/icons/bottom_nav_icons/home-filled.svg';
   static  const navVehicleOutlineIcon = 'assets/icons/bottom_nav_icons/vehicle-outline.svg';
@@ -11,6 +13,17 @@ class AppAssets {
   static  const navJobsFilledIcon = 'assets/icons/bottom_nav_icons/jobs-filled.svg';
   static  const navMoreFilledIcon = 'assets/icons/bottom_nav_icons/more-filled.svg';
   static  const navMoreOutlineIcon = 'assets/icons/bottom_nav_icons/more-outline.svg';
+  //----- Misc.
+  static  const calendarIcon = 'assets/icons/calendar.svg';
+  static  const carSideFaceIcon = 'assets/icons/car-side-face.svg';
+  static  const clockIcon = 'assets/icons/clock.svg';
+  static  const sendPlaneIcon = 'assets/icons/send-plan.svg';
+  static  const editPenIcon = 'assets/icons/edit-pen.svg';
+  static  const eyeOpenIcon = 'assets/icons/view-eye.svg';
+  static  const searchIcon = 'assets/icons/search.svg';
+  static  const bellIcon = 'assets/icons/bell.svg';
+  static  const filterIcon = 'assets/icons/filter.svg';
+
 
 
 

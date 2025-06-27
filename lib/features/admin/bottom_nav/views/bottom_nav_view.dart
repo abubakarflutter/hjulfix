@@ -6,7 +6,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hjulfix_new/core/app_resources/app_assets.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
+import '../../customer_vehicles/views/customer_vehicles_view.dart';
 import '../../dashboard/views/dashboard_view.dart';
+import '../../jobs/views/jobs_view.dart';
+import '../../more/views/more_view_page.dart';
+import '../../offers/views/offers_view.dart';
 
 class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
@@ -20,18 +24,10 @@ class _BottomNavViewState extends ConsumerState<BottomNavView> {
   int index = 0;
   List<Widget> screens = const [
     DashboardView(),
-    Center(
-      child: Text('Vehicles'),
-    ),
-    Center(
-      child: Text('Offers'),
-    ),
-    Center(
-      child: Text('Jobs'),
-    ),
-    Center(
-      child: Text('More'),
-    ),
+    CustomerVehiclesView(),
+    OffersView(),
+    JobsView(),
+    MoreViewPage(),
   ];
 
   Future<bool> onWillPop() async {

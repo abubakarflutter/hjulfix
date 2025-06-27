@@ -157,7 +157,6 @@ class VersatileScaffold extends StatelessWidget {
           style: FigmaTextStyles.headline04Bold.copyWith(color: Colors.white),
         ),
         if (subtitle != null) ...[
-         4.verticalSpace,
           Text(
             subtitle!,
             style: FigmaTextStyles.headline06Medium.copyWith(
@@ -180,7 +179,7 @@ class VersatileScaffold extends StatelessWidget {
           colors: [Color(0xFF15813D), Color(0xFF16A24A)], // light → dark green
         ),
       ),
-      child: flexibleContent == null ? FlexibleSpaceBar(
+      child: flexibleContent != null ? FlexibleSpaceBar(
         collapseMode: CollapseMode.parallax,
         background: flexibleContent,
       ) : null,

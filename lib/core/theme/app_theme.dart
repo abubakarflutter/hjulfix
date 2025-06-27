@@ -16,6 +16,12 @@ class AppTheme {
         scaffoldBackgroundColor: AppColors.scaffoldBGColor,
         primaryTextTheme: AppTextTheme.textTheme,
         textTheme: AppTextTheme.textTheme,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: AppColors.primary.withValues(
+            alpha: .3
+          ),
+          selectionHandleColor: AppColors.primary,
+        ),
         appBarTheme: AppBarTheme(
             elevation: 0,
             backgroundColor: AppColors.scaffoldBGColor,
