@@ -6,6 +6,7 @@ import '../app_resources/app_colors.dart';
 
 class AppTextTheme {
   static const String _fontFamily = 'Montserrat';
+  static const double _letterSpacing = 0;
 
   // Font weights
   static const FontWeight regular = FontWeight.w400;
@@ -23,6 +24,7 @@ class AppTextTheme {
       fontSize: isTablet() ? 19.sp : 24.sp,
       fontWeight: regular, // Default to regular, override as needed
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
     ),
     displayMedium: TextStyle(
       // Headline-02 (20px)
@@ -30,6 +32,8 @@ class AppTextTheme {
       fontSize: isTablet() ? 13.sp : 19.5.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing:_letterSpacing
+
     ),
     displaySmall: TextStyle(
       // Headline-03 (18px)
@@ -37,6 +41,8 @@ class AppTextTheme {
       fontSize: 18.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
+
     ),
     headlineLarge: TextStyle(
       // Headline-04 (16px)
@@ -44,6 +50,8 @@ class AppTextTheme {
       fontSize: isTablet() ? 13.sp : 16.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing:_letterSpacing
+
     ),
     headlineMedium: TextStyle(
       // Headline-05 (14px)
@@ -52,6 +60,8 @@ class AppTextTheme {
       fontSize: isTablet() ? 9.5.sp : 13.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
+
     ),
     headlineSmall: TextStyle(
       // Headline-06 (12px)
@@ -59,6 +69,8 @@ class AppTextTheme {
       fontSize: 12.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
+
     ),
     titleLarge: TextStyle(
       // Headline-07 (11px)
@@ -67,6 +79,8 @@ class AppTextTheme {
       fontSize: isTablet() ? 8.sp : 11.5.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
+
     ),
 
     // Paragraphs
@@ -76,6 +90,7 @@ class AppTextTheme {
       fontSize: 12.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
     ),
     bodyMedium: TextStyle(
       // Paragraph-Small (10px)
@@ -83,6 +98,7 @@ class AppTextTheme {
       fontSize: 10.sp,
       fontWeight: regular,
       color: AppColors.textPrimary,
+        letterSpacing: _letterSpacing
     ),
 
     // Unused styles (set to match closest equivalent)

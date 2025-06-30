@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hjulfix_new/core/app_resources/app_assets.dart';
+import 'package:hjulfix_new/core/routes/route_paths.dart';
 import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 import 'package:hjulfix_new/test_button.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_small_button.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
@@ -118,7 +121,7 @@ class CustomerVehiclesView extends ConsumerWidget {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
-                  color: AppColors.borderColorLight,
+                  color: AppColors.borderColor,
                   width: 1,
                 )
               ),
@@ -138,10 +141,10 @@ class CustomerVehiclesView extends ConsumerWidget {
                           color: AppColors.primary.withValues(
                             alpha: .1
                           ),
-                          border: Border.all(
-                            color: AppColors.primary,
-                            width: 1.sp,
-                          ),
+                          // border: Border.all(
+                          //   color: AppColors.primary,
+                          //   width: 1.sp,
+                          // ),
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: SvgPicture.asset(AppAssets.carSideFaceIcon),
@@ -200,7 +203,9 @@ class CustomerVehiclesView extends ConsumerWidget {
                     endIndent: 10.w,
                     indent: 10.w,
                     height: 28.h,
-                    color: AppColors.borderColorLight,
+                    color: AppColors.borderColor.withValues(
+                      alpha: .75
+                    ),
                     thickness: 1,
                   ),
 
@@ -226,7 +231,9 @@ class CustomerVehiclesView extends ConsumerWidget {
                     child: index == 1 ?
                     AppSmallButton(
                       title: "Create Offer",
-                      onTap: (){},
+                      onTap: (){
+                        context.pushNamed(Routes.vehicleDetailsView);
+                      },
                       iconPath: AppAssets.editPenIcon,
                     ) :
                     AppSmallButton(

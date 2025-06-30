@@ -249,15 +249,19 @@ class HomeStats extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.borderColorLight.withValues(
-              alpha: .5
-            ),
-            blurRadius: 8,
-            spreadRadius: 0,
-          )
-        ]
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: AppColors.borderColor.withValues(
+        //       alpha: .5
+        //     ),
+        //     blurRadius: 8,
+        //     spreadRadius: 0,
+        //   )
+        // ],
+        border: Border.all(
+          color: AppColors.borderColor,
+          width: 1
+        )
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -328,14 +332,14 @@ class HomeStats extends StatelessWidget {
                 children: [
                   Text(amount ?? "",
                     style: FigmaTextStyles.headline05SemiBold.copyWith(
-                        color: AppColors.textGreyishLight
+                        color: AppColors.textGreyishLightest
                     ),
                     // style: FigmaTextStyles.headline01ExtraBold,
                   ),
                   5.horizontalSpace,
                   Text('kr',
                     style: FigmaTextStyles.headline07SemiBold.copyWith(
-                        color: AppColors.textGreyishLight
+                        color: AppColors.textGreyishLightest
                     ),
                     // style: FigmaTextStyles.headline01ExtraBold,
                   ),
@@ -361,14 +365,14 @@ class HomeStats extends StatelessWidget {
                 children: [
                   Text(amount ?? "",
                     style: FigmaTextStyles.headline05SemiBold.copyWith(
-                        color: AppColors.textGreyishLight
+                        color: AppColors.textGreyishLightest
                     ),
                     // style: FigmaTextStyles.headline01ExtraBold,
                   ),
                   5.horizontalSpace,
                   Text('kr',
                     style: FigmaTextStyles.headline07SemiBold.copyWith(
-                        color: AppColors.textGreyishLight
+                        color: AppColors.textGreyishLightest
                     ),
                     // style: FigmaTextStyles.headline01ExtraBold,
                   ),

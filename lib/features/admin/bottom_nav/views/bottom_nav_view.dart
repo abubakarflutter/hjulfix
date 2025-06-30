@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hjulfix_new/core/app_resources/app_assets.dart';
 
 import '../../../../core/app_resources/app_colors.dart';
-import '../../customer_vehicles/views/customer_vehicles_view.dart';
+import '../../customer_vehicles/views/vehicles_list_view.dart';
 import '../../dashboard/views/dashboard_view.dart';
 import '../../jobs/views/jobs_view.dart';
 import '../../more/views/more_view_page.dart';

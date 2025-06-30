@@ -59,8 +59,9 @@ class VersatileScaffold extends StatelessWidget {
         automaticallyImplyLeading: false,
         centerTitle: addCenterLogo,
         leading: showBack
-            ? IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black),
+            ?
+        IconButton(
+          icon:  Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black, size: 18.sp),
           onPressed: () => Navigator.maybePop(context),
         )
             : null,
@@ -105,7 +106,7 @@ class VersatileScaffold extends StatelessWidget {
             automaticallyImplyLeading: false,
             leading: showBack
                 ? IconButton(
-              icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+              icon:  Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18.sp),
               onPressed: () => Navigator.maybePop(context),
             )
                 : null,

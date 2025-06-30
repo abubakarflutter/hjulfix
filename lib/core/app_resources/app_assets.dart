@@ -23,6 +23,8 @@ class AppAssets {
   static  const searchIcon = 'assets/icons/search.svg';
   static  const bellIcon = 'assets/icons/bell.svg';
   static  const filterIcon = 'assets/icons/filter.svg';
+  static  const wheelIcon = 'assets/icons/wheel.svg';
+  static  const downArrowIcon = 'assets/icons/down-arrow.svg';
 
 
 
