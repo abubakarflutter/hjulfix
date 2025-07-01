@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hjulfix_new/core/routes/routes_arguments.dart';
+import 'package:hjulfix_new/core/shared/widgets/image_viewer.dart';
 import 'package:hjulfix_new/features/shared/auth/views/login_view.dart';
 import 'package:hjulfix_new/features/shared/welcome/views/welcome_view.dart';
 import '../../features/admin/bottom_nav/views/bottom_nav_view.dart';
@@ -29,6 +31,17 @@ final GoRouter appRouter = GoRouter(
       path: RoutePaths.vehicleDetailsView,
       name: Routes.vehicleDetailsView,
       builder: (context, state) =>  VehicleDetailsView(),
+    ),
+    GoRoute(
+      path: RoutePaths.imageViewer,
+      name: Routes.imageViewer,
+      builder: (context, state) {
+        final details = state.extra as ImageViewerArgs;
+       return ImageViewer(
+         imageUrl: details.imageUrl,
+         isNetwork: details.isNetworkImage ?? true,
+       );
+      },
     ),
   ],
 );

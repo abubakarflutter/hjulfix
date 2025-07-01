@@ -25,6 +25,10 @@ class AppAssets {
   static  const filterIcon = 'assets/icons/filter.svg';
   static  const wheelIcon = 'assets/icons/wheel.svg';
   static  const downArrowIcon = 'assets/icons/down-arrow.svg';
+  static  const priceDollarIcon = 'assets/icons/price-dollar.svg';
+  static  const productBoxIcon = 'assets/icons/product-box.svg';
+  static  const deleteTagIcon = 'assets/icons/delete-tag.svg';
+  static  const addProductBoxIcon = 'assets/icons/add-product-box.svg';
 
 
 

@@ -19,6 +19,9 @@ class CustomButton extends ConsumerStatefulWidget {
   /// Whether the button is in loading state
   final bool isLoading;
 
+  /// To make the button Outlined
+  final bool isOutlined;
+
   /// Background color of the button (default: green)
   final Color? backgroundColor;
 
@@ -39,6 +42,7 @@ class CustomButton extends ConsumerStatefulWidget {
     required this.text,
     this.onPressed,
     this.isLoading = false,
+    this.isOutlined = false,
     this.backgroundColor,
     this.margin,
     this.borderRadius = 10.0,
@@ -141,8 +145,14 @@ class CustomButtonState extends ConsumerState<CustomButton>
               // ),
               margin: widget.margin,
               decoration: BoxDecoration(
-                color: widget.backgroundColor ?? AppColors.primary,
+                color: widget.backgroundColor ?? (widget.isOutlined ? Colors.white : AppColors.primary),
                 borderRadius: BorderRadius.circular(widget.borderRadius),
+                border: widget.isOutlined ?
+                     Border.all(
+                       color: AppColors.borderColor,
+                       width: 1.25
+                     )
+                    : null,
                 // gradient: LinearGradient(
                 //   colors: [
                 //     Color(0xff276740),
@@ -183,8 +193,8 @@ class CustomButtonState extends ConsumerState<CustomButton>
                     _getDisplayText(ref),
 
                     style: FigmaTextStyles.headline06SemiBold.copyWith(
-                          color: Colors.white,
-                          fontSize: isTablet() ? 8.5.sp : 13.sp,
+                          color: widget.isOutlined ? AppColors.textPrimary : Colors.white,
+                          fontSize: isTablet() ? 8.5.sp : (widget.isOutlined ? 11.5.sp : 12.sp),
                         )
                         // TextStyle(
                         //   color: AppColors.buttonTextColor,

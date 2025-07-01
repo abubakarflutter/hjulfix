@@ -15,7 +15,7 @@ class GlobalTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
-  final bool enabled;
+  final bool enabled, isDarkLabel;
   final int? maxLines;
   final TextStyle? textStyle;
   final TextStyle? labelStyle;
@@ -34,6 +34,7 @@ class GlobalTextField extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.enabled = true,
+    this.isDarkLabel = false,
     this.maxLines = 1,
     this.textStyle,
     this.labelStyle,
@@ -81,7 +82,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             style:
                 widget.labelStyle ??
                 FigmaTextStyles.headline07Medium.copyWith(
-                  color: AppColors.textGreyishDark,
+                  color: widget.isDarkLabel ? AppColors.textPrimary : AppColors.textGreyishDark,
                   fontSize: isTablet() ? 7.5.sp : 11.sp,
                 ),
             // TextStyle(

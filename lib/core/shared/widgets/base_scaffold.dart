@@ -19,6 +19,9 @@ class VersatileScaffold extends StatelessWidget {
     // flexible-space
     this.flexibleContent,
     this.flexibleHeight  = 150.0,
+    // Bottom Bar Widget
+    this.bottomBar,
+    this.floatingButton,
     // NEW flags
     this.isWhitetBar = false,
     this.addCenterLogo    = false,
@@ -35,6 +38,9 @@ class VersatileScaffold extends StatelessWidget {
 
   final Widget? flexibleContent;
   final double  flexibleHeight;
+
+  final Widget? bottomBar;
+  final Widget? floatingButton;
 
   // new
   final bool isWhitetBar;
@@ -80,6 +86,8 @@ class VersatileScaffold extends StatelessWidget {
         actions: actions,
       ),
       body: _bodyContainer(context),
+      bottomNavigationBar: bottomBar,
+      floatingActionButton: floatingButton,
     );
   }
 
@@ -124,6 +132,8 @@ class VersatileScaffold extends StatelessWidget {
           ),
         ],
       ),
+      bottomNavigationBar: bottomBar,
+      floatingActionButton: floatingButton,
     );
   }
 
