@@ -534,11 +534,13 @@ class VehicleDetailsView extends StatelessWidget {
                                   14.verticalSpace,
                                   GlobalTextField(
                                     labelText: 'Name',
+                                    hintText: 'Enter Product Name',
                                     labelStyle: FigmaTextStyles.headline06SemiBold,
                                   ),
                                   14.verticalSpace,
                                   GlobalTextField(
                                     labelText: 'Price',
+                                    hintText: 'Enter Product Price',
                                     labelStyle: FigmaTextStyles.headline06SemiBold,
                                   ),
                                   18.verticalSpace,

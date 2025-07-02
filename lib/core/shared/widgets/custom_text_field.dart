@@ -129,7 +129,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: FigmaTextStyles.headline07Medium.copyWith(
-              color: AppColors.textGreyishLightest
+              color: AppColors.textGreyishLighter
             ),
             suffixIcon: widget.suffixWidget,
             prefixIcon: widget.prefixWidget,

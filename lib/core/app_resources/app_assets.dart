@@ -29,6 +29,9 @@ class AppAssets {
   static  const productBoxIcon = 'assets/icons/product-box.svg';
   static  const deleteTagIcon = 'assets/icons/delete-tag.svg';
   static  const addProductBoxIcon = 'assets/icons/add-product-box.svg';
+  static  const userIcon = 'assets/icons/user-icon.svg';
+  static  const emptyWalletIcon = 'assets/icons/empty-wallet.svg';
+  static  const ellipsisVerticalIcon = 'assets/icons/elipsis-vertical.svg';
 
 
 

@@ -6,6 +6,7 @@ import 'package:hjulfix_new/features/shared/auth/views/login_view.dart';
 import 'package:hjulfix_new/features/shared/welcome/views/welcome_view.dart';
 import '../../features/admin/bottom_nav/views/bottom_nav_view.dart';
 import '../../features/admin/customer_vehicles/views/vehicle_details_view.dart';
+import '../../features/admin/offers/views/create_offer_view.dart';
 import 'routes.dart';
 import 'route_paths.dart';
 
@@ -42,6 +43,11 @@ final GoRouter appRouter = GoRouter(
          isNetwork: details.isNetworkImage ?? true,
        );
       },
+    ),
+    GoRoute(
+      path: RoutePaths.createOfferView,
+      name: Routes.createOfferView,
+      builder: (context, state) =>  CreateOfferView(),
     ),
   ],
 );
