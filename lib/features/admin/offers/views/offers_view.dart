@@ -1,9 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+
 import '../../../../core/app_resources/app_assets.dart';
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
@@ -12,7 +14,6 @@ import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../core/theme/app_text_styles.dart';
-import '../../../../test_button.dart';
 import '../../dashboard/views/dashboard_view.dart';
 
 class OffersView extends ConsumerWidget {
@@ -109,9 +110,7 @@ class OffersView extends ConsumerWidget {
         child: Column(
           children: List.generate(8, (index) {
             return Container(
-              padding: EdgeInsets.symmetric(
-                vertical: 12.w,
-              ),
+              padding: EdgeInsets.symmetric(vertical: 12.w),
               margin: EdgeInsets.only(bottom: 13.h),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -159,92 +158,55 @@ class OffersView extends ConsumerWidget {
                               'Quote#  2786',
                               style: FigmaTextStyles.headline06Medium.copyWith(
                                 color: AppColors.textGreyishDark,
-                                fontSize: 11.sp
+                                fontSize: 11.sp,
                               ),
                             ),
                           ],
                         ),
                       ),
                       5.horizontalSpace,
-                      IconButton(onPressed: () async {
-
-
-                        showModalBottomSheet(
-                          context: context,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-                          ),
-                          backgroundColor: Colors.white,
-                          isScrollControlled: true, // for full height
-                          builder: (context) {
-                            return Container(
-                              width: double.maxFinite,
-                              padding: EdgeInsets.only(
-                                bottom: MediaQuery.of(context).viewInsets.bottom + 10,
-                                top: AppDimensions.viewHorizontalPadding + 6,
-                                left: AppDimensions.viewHorizontalPadding + 3,
-                                right: AppDimensions.viewHorizontalPadding + 3,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // 14.verticalSpace,
-                                  AppText('Offer Options',
-                                   style: FigmaTextStyles.headline05SemiBold,
-                                  ),
-                                  14.verticalSpace,
-                                  Row(
-                                    children: [
-                                      OfferSheetOptions(
-                                        title: 'Accept & Create Job',
-                                        iconPath: AppAssets.editPenIcon,
-                                      ),
-                                      8.horizontalSpace,
-                                      OfferSheetOptions(
-                                        title: 'Edit Offer',
-                                        iconPath: AppAssets.editPenIcon,
-                                      ),
-                                    ],
-                                  ),
-                                  8.verticalSpace,
-                                  Row(
-                                    children: [
-                                      OfferSheetOptions(
-                                        title: 'Delete',
-                                        iconPath: AppAssets.editPenIcon,
-                                        isDelete: true,
-                                      ),
-                                      8.horizontalSpace,
-                                      OfferSheetOptions(
-                                        title: 'Download PDF',
-                                        iconPath: AppAssets.editPenIcon,
-                                      ),
-                                    ],
-                                  ),
-                                  16.verticalSpace,
-                                  CustomButton(
-                                    text: 'Close',
-                                    onPressed: () =>
-                                        context.pop(),
-                                    isOutlined: true,
-                                  ),
-                                  // ElevatedButton(
-                                  //   onPressed: () => Navigator.pop(context),
-                                  //   child: Text("Close"),
-                                  // ),
-                                ],
-                              ),
-                            );
+                      Padding(
+                        padding: EdgeInsets.only(right: 12.w),
+                        child: CustomPopup(
+                          barrierColor: Colors.black.withOpacity(0.3),
+                          onBeforePopup: () {
+                            HapticFeedback.lightImpact();
                           },
-                        );
-
-
-                      }, icon: SvgPicture.asset(AppAssets.ellipsisVerticalIcon,
-                       height: 18.h,
-                       colorFilter: ColorFilter.mode(AppColors.textGreyishLighter, BlendMode.srcIn),
-                      ),
-                       padding: EdgeInsets.zero,
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              PopUpTile(
+                                title: 'Edit Offer',
+                                iconPath: AppAssets.editPenIcon,
+                              ),
+                              PopUpTile(
+                                title: 'Accept Offer & Create Job',
+                                iconPath: AppAssets.checkTickIcon,
+                                iconSize: 12,
+                              ),
+                              PopUpTile(
+                                title: 'Download Offer PDF',
+                                iconPath: AppAssets.downloadIcon,
+                                iconSize: 16,
+                              ),
+                              PopUpTile(
+                                title: 'Delete',
+                                iconPath: AppAssets.trashIcon,
+                                isDelete: true,
+                              ),
+                            ],
+                          ),
+                          // contentPadding: EdgeInsets.only(right: 10.w),
+                          child: SvgPicture.asset(
+                            AppAssets.ellipsisVerticalIcon,
+                            height: 18.h,
+                            colorFilter: ColorFilter.mode(
+                              AppColors.textGreyishLighter,
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -256,9 +218,7 @@ class OffersView extends ConsumerWidget {
                     thickness: 1,
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 12.w,
-                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -271,7 +231,7 @@ class OffersView extends ConsumerWidget {
                             ),
                             5.horizontalSpace,
                             Text(
-                              '15 July 2025',
+                              '15 Dec. 2025',
                               style: FigmaTextStyles.headline06Medium.copyWith(
                                 color: AppColors.textGreyishDark,
                                 fontSize: 11.sp,
@@ -289,9 +249,17 @@ class OffersView extends ConsumerWidget {
                               // colorFilter: ColorFilter,
                             ),
                             5.horizontalSpace,
-                            Text(
+                            AppText(
                               '640 DKK',
                               style: FigmaTextStyles.headline07SemiBold,
+                            ),
+                            5.horizontalSpace,
+                            AppText(
+                              '(Net 8 Days)',
+                              style: FigmaTextStyles.headline06Medium.copyWith(
+                                color: AppColors.textGreyishDark,
+                                fontSize: 11.sp,
+                              ),
                             ),
                           ],
                         ),
@@ -305,9 +273,8 @@ class OffersView extends ConsumerWidget {
         ),
       ),
       floatingButton: RawMaterialButton(
-        onPressed: () {
-          context.push(RoutePaths.createOfferView,
-          );
+        onPressed: () async {
+          context.push(RoutePaths.createOfferView);
         },
         fillColor: AppColors.primary,
         splashColor: Colors.white24,
@@ -345,6 +312,47 @@ class OffersView extends ConsumerWidget {
   }
 }
 
+class PopUpTile extends StatelessWidget {
+  final String title, iconPath;
+  final bool isDelete;
+  final double iconSize;
+  const PopUpTile({
+    super.key,
+    required this.title,
+    required this.iconPath,
+    this.isDelete = false,
+    this.iconSize = 18,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 10.h),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            iconPath,
+            height: iconSize.h,
+            colorFilter: ColorFilter.mode(
+              isDelete ? Colors.red : AppColors.textPrimary,
+              BlendMode.srcIn,
+            ),
+          ),
+          12.horizontalSpace,
+          AppText(
+            title,
+            style: FigmaTextStyles.headline06Medium.copyWith(
+              color: isDelete ? Colors.red : null,
+            ),
+          ),
+          4.horizontalSpace,
+        ],
+      ),
+    );
+  }
+}
+
 class OfferSheetOptions extends StatelessWidget {
   final String title, iconPath;
   final bool isDelete;
@@ -353,38 +361,39 @@ class OfferSheetOptions extends StatelessWidget {
     super.key,
     required this.title,
     required this.iconPath,
-    this.isDelete = false
+    this.isDelete = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: Container(
-      padding: EdgeInsets.symmetric(
-                                      vertical: 12.h,
-                                    horizontal: 12.w,
-                                  ),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(6.r),
-        border: Border.all(
-          color: AppColors.borderColor,
-          width: 1
-        )
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 12.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(6.r),
+          border: Border.all(color: AppColors.borderColor, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              height: 22.h,
+              colorFilter: ColorFilter.mode(
+                isDelete ? Colors.red : AppColors.primary,
+                BlendMode.srcIn,
+              ),
+            ),
+            8.verticalSpace,
+            AppText(
+              title,
+              style: FigmaTextStyles.headline06SemiBold.copyWith(
+                color: isDelete ? Colors.red : null,
+              ),
+            ),
+          ],
+        ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-           SvgPicture.asset(iconPath,
-             height: 22.h,
-             colorFilter: ColorFilter.mode(isDelete ? Colors.red : AppColors.primary, BlendMode.srcIn),
-          ),
-          8.verticalSpace,
-          AppText(title,
-           style: FigmaTextStyles.headline06SemiBold.copyWith(
-             color: isDelete ? Colors.red : null
-           ),
-          )
-        ],
-      ),
-    ));
+    );
   }
 }

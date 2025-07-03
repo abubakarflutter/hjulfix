@@ -13,7 +13,6 @@ import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../test_button.dart';
-
 // Import your providers and other dependencies
 import '../models/auth_model.dart';
 import '../providers/auth_provider.dart';
@@ -34,7 +33,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    if(kDebugMode) {
+    if (kDebugMode) {
       _emailController.text = "123@hjulfix.dk";
       _passwordController.text = "TeamHjulfix123!";
     }
@@ -49,10 +48,12 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   Future<void> _handleLogin() async {
     if (_formKey.currentState?.validate() ?? false) {
-      await ref.read(loginNotifierProvider.notifier).login(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+      await ref
+          .read(loginNotifierProvider.notifier)
+          .login(
+            email: _emailController.text.trim(),
+            password: _passwordController.text.trim(),
+          );
     }
   }
 
@@ -72,7 +73,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
             //   const SnackBar(content: Text('Login successful!')),
             // );
             // await Future.delayed(const Duration(seconds: 1));
-            if(context.mounted) context.push(RoutePaths.adminBottomNav);
+            if (context.mounted) context.push(RoutePaths.adminBottomNav);
           }
         },
         error: (error, stackTrace) {
@@ -137,7 +138,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
                     }
-                    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+                    if (!RegExp(
+                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    ).hasMatch(value)) {
                       return 'Please enter a valid email';
                     }
                     return null;
