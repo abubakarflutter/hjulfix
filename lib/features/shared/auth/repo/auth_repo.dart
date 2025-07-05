@@ -45,7 +45,7 @@ class AuthRepository {
       if (response.success && response.data != null) {
         // Save token and user data
         await cacheService.saveAuthToken(response.data?.token ?? "");
-        await cacheService.saveUserData(response.data!.userData!.toJson());
+        await cacheService.saveUserData(response.data!.toJson());
         return right(response.data!);
       }
       return left(ServerFailure(response.message ?? 'Login failed'));
@@ -65,10 +65,10 @@ class AuthRepository {
   //   });
   // }
 
-  UserData? getCurrentUser() {
+  AuthModel? getCurrentUser() {
     final userData = cacheService.getUserData();
     if (userData != null) {
-      return UserData.fromJson(userData);
+      return AuthModel.fromJson(userData);
     }
     return null;
   }

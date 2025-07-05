@@ -50,7 +50,7 @@ class LoginNotifier extends _$LoginNotifier {
 }
 
 @riverpod
-UserData? currentUser(Ref ref) {
+AuthModel? currentUser(Ref ref) {
   final repository = ref.read(authRepositoryProvider);
   return repository.getCurrentUser();
 }

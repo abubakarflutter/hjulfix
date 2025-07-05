@@ -5,4 +5,5 @@ class Routes {
   static const vehicleDetailsView = 'vehicle-details-view';
   static const imageViewer = 'image-viewer';
   static const createOfferView = 'create-offer-view';
+  static const selectContactView = 'select-contact-view';
 }

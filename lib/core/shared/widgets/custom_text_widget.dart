@@ -7,20 +7,34 @@ import '../../localization/language_provider.dart';
 import '../../localization/translation_data.dart';
 import '../../localization/translation_keys.dart';
 
+/// ---------------------------------------------------------------------------
+///  AppText — Now with *optional* RichText support
+/// ---------------------------------------------------------------------------
+///
+/// * Keep using it exactly the same way for single‑style strings.
+/// * Flip `isRichText: true` **and** provide `segments:` to mix styles in one
+///   line. Each segment can be translatable or a raw string.
+///
+/// ```dart
+/// AppText(
+///   'Hello world',
+///   fontWeight: FontWeight.w600,
+/// );
+///
+/// AppText.rich(
+///   segments: [
+///     AppTextSegment('Hello '),
+///     AppTextSegment(
+///       TranslationKeys.world,
+///       style: const TextStyle(color: Colors.blue),
+///     ),
+///   ],
+/// );
+/// ```
+///
+/// Both constructors end up in the same widget under the hood.
 class AppText extends ConsumerWidget {
-  // Accept both String and TranslationKeys
-  final dynamic text; // Can be String or TranslationKeys
-  final bool translatable;
-  final TextStyle? style;
-  final double? fontSize;
-  final FontWeight? fontWeight;
-  final Color? color;
-  final double? height;
-  final TextAlign? textAlign;
-  final int? maxLines;
-  final TextOverflow? overflow;
-  final Function? onTap;
-
+  // ------------------------------------------------------  single‑string API
   const AppText(
     this.text, {
     super.key,
@@ -34,53 +48,119 @@ class AppText extends ConsumerWidget {
     this.maxLines,
     this.overflow,
     this.onTap,
-  });
+  }) : isRichText = false,
+       segments = null;
 
+  // ------------------------------------------------------  rich‑text API
+  const AppText.rich({
+    super.key,
+    required this.segments,
+    this.textAlign,
+    this.maxLines,
+    this.overflow,
+    this.onTap,
+  }) : text = null,
+       isRichText = true,
+       translatable = true,
+       style = null,
+       fontSize = null,
+       fontWeight = null,
+       color = null,
+       height = null;
+
+  // ---------------------------------------------------------------- props ---
+  final dynamic text; // String or TranslationKeys when !isRichText
+  final bool translatable; // ignored when isRichText == true
+
+  final TextStyle? style;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final Color? color;
+  final double? height;
+  final TextAlign? textAlign;
+  final int? maxLines;
+  final TextOverflow? overflow;
+  final Function? onTap;
+
+  final bool isRichText;
+  final List<AppTextSegment>? segments; // required when isRichText == true
+
+  // ---------------------------------------------------------------- widget ---
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextStyle finalStyle = style ?? const TextStyle();
-
-    // Apply style overrides conditionally using copyWith
-    finalStyle = finalStyle.copyWith(
+    final baseStyle = (style ?? const TextStyle()).copyWith(
       fontSize: fontSize?.sp,
       fontWeight: fontWeight,
       color: color,
       height: height,
     );
 
+    final child = isRichText
+        ? _buildRichText(ref, baseStyle)
+        : _buildPlainText(ref, baseStyle);
+
     return GestureDetector(
       onTap: () {
         HapticFeedback.lightImpact();
-        if (onTap != null) {
-          onTap!();
-        }
+        if (onTap != null) onTap!();
       },
-      child: Text(
-        _getDisplayText(ref),
-        style: finalStyle,
-        textAlign: textAlign,
-        maxLines: maxLines,
-        overflow: overflow,
-      ),
+      behavior: HitTestBehavior.opaque,
+      child: child,
     );
   }
 
-  String _getDisplayText(WidgetRef ref) {
-    if (!translatable) {
-      // If not translatable, return as string regardless of type
-      return text.toString();
-    }
-
-    if (text is TranslationKeys) {
-      // FIXED: Use ref.watch() to listen to language changes and get translation directly
-      final currentLanguage = ref.watch(languageProvider);
-      return TranslationData.getText(currentLanguage, text as TranslationKeys);
-    } else if (text is String) {
-      // If it's a string, return as is (for backward compatibility)
-      return text as String;
-    } else {
-      // Fallback
-      return text.toString();
-    }
+  // ------------------------------------------------------------- helpers ---
+  // Build the legacy single‑style <Text> widget
+  Widget _buildPlainText(WidgetRef ref, TextStyle baseStyle) {
+    return Text(
+      _resolveText(ref, text, translatable),
+      style: baseStyle,
+      textAlign: textAlign,
+      maxLines: maxLines,
+      overflow: overflow,
+    );
   }
+
+  // Build the mixed‑style <RichText> widget
+  Widget _buildRichText(WidgetRef ref, TextStyle baseStyle) {
+    assert(
+      segments != null && segments!.isNotEmpty,
+      'When isRichText is true you must supply at least one AppTextSegment',
+    );
+
+    final spans = segments!.map((seg) {
+      final mergedStyle = baseStyle.merge(seg.style);
+      return TextSpan(
+        text: _resolveText(ref, seg.text, seg.translatable),
+        style: mergedStyle,
+      );
+    }).toList();
+
+    return RichText(
+      textAlign: textAlign ?? TextAlign.start,
+      maxLines: maxLines,
+      overflow: overflow ?? TextOverflow.clip,
+      text: TextSpan(style: baseStyle, children: spans),
+    );
+  }
+
+  // Resolve string / TranslationKey into localised text
+  String _resolveText(WidgetRef ref, dynamic value, bool trans) {
+    if (!trans) return value.toString();
+
+    if (value is TranslationKeys) {
+      final lang = ref.watch(languageProvider);
+      return TranslationData.getText(lang, value);
+    }
+    return value.toString();
+  }
+}
+
+/// One piece of a RichText line.
+class AppTextSegment {
+  const AppTextSegment(this.text, {this.style, this.translatable = true});
+
+  final dynamic text; // String or TranslationKeys
+  final TextStyle? style;
+  final bool translatable;
 }

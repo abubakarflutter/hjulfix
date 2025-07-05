@@ -45,4 +45,8 @@ class AppAssets {
   static const trashIcon = 'assets/icons/trash.svg';
   static const downloadIcon = 'assets/icons/download.svg';
   static const checkTickIcon = 'assets/icons/check-tick.svg';
+  static const arrowRightIcon = 'assets/icons/arrow-right.svg';
+  static const checkCircleIcon = 'assets/icons/check-circle.svg';
+  static const checkCircleFilledIcon = 'assets/icons/check-circle-filled.svg';
+  static const commentIcon = 'assets/icons/comment.svg';
 }

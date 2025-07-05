@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/app_resources/app_assets.dart';
 import '../../../../core/app_resources/app_colors.dart';
 import '../../../../core/app_resources/app_dimens.dart';
-import '../../../../core/routes/route_paths.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_field.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
@@ -272,42 +272,68 @@ class OffersView extends ConsumerWidget {
           }),
         ),
       ),
-      floatingButton: RawMaterialButton(
-        onPressed: () async {
-          context.push(RoutePaths.createOfferView);
-        },
-        fillColor: AppColors.primary,
-        splashColor: Colors.white24,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100.r),
-        ),
-        elevation: 1,
-        // minimal elevation
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-        constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-        // allow dynamic size
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              AppAssets.editPenIcon,
-              width: 18.h,
-              colorFilter: const ColorFilter.mode(
-                Colors.white,
-                BlendMode.srcIn,
-              ),
+      floatingButton: SizedBox(
+        height: 42.h,
+        child: FloatingActionButton.extended(
+          heroTag: 'createOfferFab', // unique when you have >1 FAB
+          onPressed: () => context.pushNamed(Routes.createOfferView),
+          backgroundColor: AppColors.primary,
+          extendedPadding: EdgeInsets.symmetric(horizontal: 16.w),
+          elevation: 3,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.r),
+          ),
+          label: Text(
+            'Create Offer',
+            style: FigmaTextStyles.headline07Medium.copyWith(
+              color: Colors.white,
             ),
-            4.horizontalSpace,
-            AppText(
-              'Create Offer',
-              style: FigmaTextStyles.headline07Medium.copyWith(
-                color: Colors.white,
-              ),
-            ),
-          ],
+          ),
+          icon: SvgPicture.asset(
+            AppAssets.editPenIcon,
+            height: 18,
+            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+          ),
         ),
       ),
+
+      // floatingButton: RawMaterialButton(
+      //   onPressed: () {
+      //     context.pushNamed(Routes.createOfferView);
+      //     // log("this one clicked");
+      //   },
+      //   fillColor: AppColors.primary,
+      //   splashColor: Colors.white24,
+      //   shape: RoundedRectangleBorder(
+      //     borderRadius: BorderRadius.circular(100.r),
+      //   ),
+      //   elevation: 1,
+      //   // minimal elevation
+      //   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      //   constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
+      //   // allow dynamic size
+      //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      //   child: Row(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: [
+      //       SvgPicture.asset(
+      //         AppAssets.editPenIcon,
+      //         width: 18.h,
+      //         colorFilter: const ColorFilter.mode(
+      //           Colors.white,
+      //           BlendMode.srcIn,
+      //         ),
+      //       ),
+      //       4.horizontalSpace,
+      //       AppText(
+      //         'Create Offer',
+      //         style: FigmaTextStyles.headline07Medium.copyWith(
+      //           color: Colors.white,
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 }
