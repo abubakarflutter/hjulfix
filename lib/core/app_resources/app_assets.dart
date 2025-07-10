@@ -49,4 +49,7 @@ class AppAssets {
   static const checkCircleIcon = 'assets/icons/check-circle.svg';
   static const checkCircleFilledIcon = 'assets/icons/check-circle-filled.svg';
   static const commentIcon = 'assets/icons/comment.svg';
+  static const plusAddIcon = 'assets/icons/plus.svg';
+  static const doubleArrowUpIcon = 'assets/icons/double-arrow-up.svg';
+  static const doubleArrowDownIcon = 'assets/icons/double-arrow-down.svg';
 }

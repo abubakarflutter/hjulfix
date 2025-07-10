@@ -26,6 +26,9 @@ class CustomButton extends ConsumerStatefulWidget {
   final Color? backgroundColor;
 
   /// Border radius of the button (default: 100)
+  final double buttonHeight;
+
+  /// Border radius of the button (default: 100)
   final double borderRadius;
 
   /// Animation scale coefficient (default: 0.75)
@@ -37,14 +40,20 @@ class CustomButton extends ConsumerStatefulWidget {
   /// Button Side Margins
   final EdgeInsets? margin;
 
+  /// Button Row Widget Handling
+  final bool isExpanded; // Add this
+
+
   const CustomButton({
     super.key,
     required this.text,
     this.onPressed,
     this.isLoading = false,
+    this.isExpanded = false,
     this.isOutlined = false,
     this.backgroundColor,
     this.margin,
+    this.buttonHeight = 44.0,
     this.borderRadius = 10.0,
     this.scaleCoefficient = 0.92,
     this.duration = 1000,
@@ -117,7 +126,7 @@ class CustomButtonState extends ConsumerState<CustomButton>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
+    final button = AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, Widget? child) {
         return Transform.scale(
@@ -137,80 +146,53 @@ class CustomButtonState extends ConsumerState<CustomButton>
                 ? () => springUp()
                 : null,
             child: Container(
-              height: isTablet() ? 40.h : 44.h,
-              // height: 45.h,
+              height: isTablet() ? 40.h : widget.buttonHeight.h,
               width: double.infinity,
-              // padding: EdgeInsets.symmetric(
-              //   vertical: 12.h
-              // ),
               margin: widget.margin,
               decoration: BoxDecoration(
-                color: widget.backgroundColor ?? (widget.isOutlined ? Colors.white : AppColors.primary),
+                color: widget.backgroundColor ??
+                    (widget.isOutlined ? Colors.white : AppColors.primary),
                 borderRadius: BorderRadius.circular(widget.borderRadius),
-                border: widget.isOutlined ?
-                     Border.all(
-                       color: AppColors.borderColor,
-                       width: 1.25
-                     )
+                border: widget.isOutlined
+                    ? Border.all(color: AppColors.borderColor, width: 1.25)
                     : null,
-                // gradient: LinearGradient(
-                //   colors: [
-                //     Color(0xff276740),
-                //     Color(0xff408D5A),
-                //     Color(0xff276740),
-                //   ],
-                //   begin: Alignment.centerLeft,
-                //   end: Alignment.centerRight,
-                //   // stops: [0.0, 1.0],
-                //   // tileMode: TileMode.clamp
-                // ),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.black.withOpacity(0.1),
-                //     blurRadius: 8,
-                //     offset: const Offset(0, 4),
-                //   ),
-                // ],
               ),
               child: Center(
                 child: widget.isLoading
                     ? SizedBox(
-                        height: isTablet() ? 18.h : 22.h,
-                        width: isTablet() ? 18.h : 22.h,
-
-                        child: SpinnerLoader(
-                          options: LoaderOptions(
-                            color: AppColors.buttonLoadingColor,
-                            // size: LoaderSize.small,
-                            strokeWidth: 3,
-                            backgroundColor: AppColors.buttonLoadingBGColor,
-                            durationMs: 1000,
-                            loop: true,
-                          ),
-                        ),
-                      )
+                  height: isTablet() ? 18.h : 22.h,
+                  width: isTablet() ? 18.h : 22.h,
+                  child: SpinnerLoader(
+                    options: LoaderOptions(
+                      color: AppColors.buttonLoadingColor,
+                      strokeWidth: 3,
+                      backgroundColor: AppColors.buttonLoadingBGColor,
+                      durationMs: 1000,
+                      loop: true,
+                    ),
+                  ),
+                )
                     : Text(
-                    _getDisplayText(ref),
-
-                    style: FigmaTextStyles.headline06SemiBold.copyWith(
-                          color: widget.isOutlined ? AppColors.textPrimary : Colors.white,
-                          fontSize: isTablet() ? 8.5.sp : (widget.isOutlined ? 11.5.sp : 12.sp),
-                        )
-                        // TextStyle(
-                        //   color: AppColors.buttonTextColor,
-                        //   fontFamily: AppConfigs.appFontFamily,
-                        //   // fontSize: 14.sp,
-                        //   fontSize: isTablet() ? 8.5.sp : 13.sp,
-                        //   fontWeight: FontWeight.w600,
-                        // ),
-                      ),
+                  _getDisplayText(ref),
+                  style: FigmaTextStyles.headline06SemiBold.copyWith(
+                    color: widget.isOutlined
+                        ? AppColors.textPrimary
+                        : Colors.white,
+                    fontSize: isTablet()
+                        ? 8.5.sp
+                        : (widget.isOutlined ? 11.5.sp : 12.sp),
+                  ),
+                ),
               ),
             ),
           ),
         );
       },
     );
+
+    return widget.isExpanded ? Expanded(child: button) : button;
   }
+
 
   String _getDisplayText(WidgetRef ref) {
     // if (!translatable) {
