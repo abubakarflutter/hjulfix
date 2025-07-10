@@ -8,6 +8,7 @@ import '../../features/admin/bottom_nav/views/bottom_nav_view.dart';
 import '../../features/admin/customer_vehicles/views/vehicle_details_view.dart';
 import '../../features/admin/offers/views/create_offer_view.dart';
 import '../../features/admin/offers/views/select_contact_view.dart';
+import '../../features/admin/offers/views/select_products_view.dart';
 import 'route_paths.dart';
 import 'routes.dart';
 
@@ -54,6 +55,11 @@ final GoRouter appRouter = GoRouter(
       path: RoutePaths.selectContactView,
       name: Routes.selectContactView,
       builder: (context, state) => SelectContactView(),
+    ),
+    GoRoute(
+      path: RoutePaths.selectProductView,
+      name: Routes.selectProductView,
+      builder: (context, state) => SelectProductView(),
     ),
   ],
 );

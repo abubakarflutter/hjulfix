@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hjulfix_new/core/app_resources/app_dimens.dart';
 import 'package:hjulfix_new/core/shared/widgets/custom_text_field.dart';
 
 import '../../../../core/app_resources/app_assets.dart';
 import '../../../../core/app_resources/app_colors.dart';
+import '../../../../core/routes/routes.dart';
 import '../../../../core/shared/widgets/base_scaffold.dart';
 import '../../../../core/shared/widgets/custom_text_widget.dart';
 import '../../../../core/theme/app_text_styles.dart';
@@ -511,9 +514,12 @@ class CreateOfferView extends ConsumerWidget {
               children: [
                 Expanded(
                   child: CustomButton(
-                    text: 'Add Custom Product',
+                    text: 'Add Product',
                     isOutlined: true,
-                    onPressed: () {},
+                    onPressed: () {
+                      HapticFeedback.lightImpact();
+                      context.pushNamed(Routes.selectProductView);
+                    },
                   ),
                 ),
                 10.horizontalSpace,
