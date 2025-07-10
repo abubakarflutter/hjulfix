@@ -296,44 +296,6 @@ class OffersView extends ConsumerWidget {
           ),
         ),
       ),
-
-      // floatingButton: RawMaterialButton(
-      //   onPressed: () {
-      //     context.pushNamed(Routes.createOfferView);
-      //     // log("this one clicked");
-      //   },
-      //   fillColor: AppColors.primary,
-      //   splashColor: Colors.white24,
-      //   shape: RoundedRectangleBorder(
-      //     borderRadius: BorderRadius.circular(100.r),
-      //   ),
-      //   elevation: 1,
-      //   // minimal elevation
-      //   padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-      //   constraints: const BoxConstraints(minWidth: 0, minHeight: 0),
-      //   // allow dynamic size
-      //   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      //   child: Row(
-      //     mainAxisSize: MainAxisSize.min,
-      //     children: [
-      //       SvgPicture.asset(
-      //         AppAssets.editPenIcon,
-      //         width: 18.h,
-      //         colorFilter: const ColorFilter.mode(
-      //           Colors.white,
-      //           BlendMode.srcIn,
-      //         ),
-      //       ),
-      //       4.horizontalSpace,
-      //       AppText(
-      //         'Create Offer',
-      //         style: FigmaTextStyles.headline07Medium.copyWith(
-      //           color: Colors.white,
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }
