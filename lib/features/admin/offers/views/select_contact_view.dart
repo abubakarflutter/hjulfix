@@ -118,7 +118,7 @@ class SelectContactView extends ConsumerWidget {
         height: 43.h,
         child: FloatingActionButton.extended(
           heroTag: 'createNewContact', // unique when you have >1 FAB
-          onPressed: () => context.pushNamed(Routes.createOfferView),
+          onPressed: () => context.pushNamed(Routes.createContactView),
           backgroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(100.r),

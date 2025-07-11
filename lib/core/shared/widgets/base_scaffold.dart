@@ -1,5 +1,6 @@
 // versatile_scaffold.dart
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hjulfix_new/core/app_resources/app_dimens.dart';
 import 'package:hjulfix_new/core/theme/app_text_styles.dart';
@@ -68,7 +69,10 @@ class VersatileScaffold extends StatelessWidget {
             ?
         IconButton(
           icon:  Icon(Icons.arrow_back_ios_new_rounded, color: Colors.black, size: 18.sp),
-          onPressed: () => Navigator.maybePop(context),
+          onPressed: () {
+            HapticFeedback.lightImpact();
+            Navigator.maybePop(context);
+          },
         )
             : null,
         title: addCenterLogo
@@ -115,7 +119,10 @@ class VersatileScaffold extends StatelessWidget {
             leading: showBack
                 ? IconButton(
               icon:  Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white, size: 18.sp),
-              onPressed: () => Navigator.maybePop(context),
+              onPressed: () {
+                HapticFeedback.lightImpact();
+                Navigator.maybePop(context);
+              },
             )
                 : null,
             actions: actions,

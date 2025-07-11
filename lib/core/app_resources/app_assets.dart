@@ -25,6 +25,7 @@ class AppAssets {
       'assets/icons/bottom_nav_icons/more-outline.svg';
   //----- Misc.
   static const calendarIcon = 'assets/icons/calendar.svg';
+  static const languageIcon = 'assets/icons/lang-icon.svg';
   static const carSideFaceIcon = 'assets/icons/car-side-face.svg';
   static const clockIcon = 'assets/icons/clock.svg';
   static const sendPlaneIcon = 'assets/icons/send-plan.svg';
@@ -52,4 +53,14 @@ class AppAssets {
   static const plusAddIcon = 'assets/icons/plus.svg';
   static const doubleArrowUpIcon = 'assets/icons/double-arrow-up.svg';
   static const doubleArrowDownIcon = 'assets/icons/double-arrow-down.svg';
+  //------
+  static const dealersUserIcon = 'assets/icons/dealers-users.svg';
+  static const growArrowIcon = 'assets/icons/grow-arrow-icon.svg';
+  static const logoutIcon = 'assets/icons/logout.svg';
+  static const productsIcon = 'assets/icons/products.svg';
+  static const settingsIcon = 'assets/icons/settings.svg';
+  static const stagesLayersIcon = 'assets/icons/stages-layers.svg';
+  static const workersGroupIcon = 'assets/icons/workers.svg';
+  static const downArrowNarrowIcon = 'assets/icons/arrow-down-narrowed.svg';
+
 }

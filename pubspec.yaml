@@ -45,6 +45,7 @@ dependencies:
   easy_date_timeline: ^2.0.9
   flutter_native_splash: ^2.4.6
   modal_bottom_sheet: ^3.0.0
+  country_picker: ^2.0.27
 
 
 

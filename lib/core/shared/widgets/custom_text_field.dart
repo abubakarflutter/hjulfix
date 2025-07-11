@@ -5,6 +5,7 @@ import 'package:hjulfix_new/core/utils/system_utils.dart';
 
 import '../../app_resources/app_colors.dart';
 import '../../theme/app_text_styles.dart';
+import 'custom_text_widget.dart';
 
 class GlobalTextField extends StatefulWidget {
   final String? labelText;
@@ -15,7 +16,7 @@ class GlobalTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
-  final bool enabled, isDarkLabel;
+  final bool enabled, isDarkLabel, isRequired, isExpanded;
   final int? maxLines;
   final TextStyle? textStyle;
   final TextStyle? labelStyle;
@@ -35,6 +36,8 @@ class GlobalTextField extends StatefulWidget {
     this.validator,
     this.enabled = true,
     this.isDarkLabel = false,
+    this.isRequired = false,
+    this.isExpanded = false,
     this.maxLines = 1,
     this.textStyle,
     this.labelStyle,
@@ -72,26 +75,34 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final field =  Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Label text (only show if provided)
         if (widget.labelText != null) ...[
-          Text(
-            " ${widget.labelText!}",
-            style:
-                widget.labelStyle ??
-                FigmaTextStyles.headline07Medium.copyWith(
-                  color: widget.isDarkLabel ? AppColors.textPrimary : AppColors.textGreyishDark,
-                  fontSize: isTablet() ? 7.5.sp : 11.sp,
+          Row(
+            children: [
+              AppText(
+                " ${widget.labelText!}",
+                style:
+                    widget.labelStyle ??
+                        (widget.isDarkLabel ?    FigmaTextStyles.headline07SemiBold.copyWith(
+                      color: AppColors.textPrimary,
+                      fontSize: isTablet() ? 7.5.sp : 11.sp,
+                    ) : FigmaTextStyles.headline07Medium.copyWith(
+                      color: widget.isDarkLabel ? AppColors.textPrimary : AppColors.textGreyishDark,
+                      fontSize: isTablet() ? 7.5.sp : 11.sp,
+                    )),
+              ),
+            if(widget.isRequired)  AppText('*',
+                style: FigmaTextStyles.headline05SemiBold.copyWith(
+                  color: Colors.red,
+                  // fontSize: isTablet() ? 7.5.sp : 11.sp,
                 ),
-            // TextStyle(
-            //   fontSize: 11.5.sp,
-            //     fontFamily: AppConfigs.appFontFamily,
-            //   fontWeight: FontWeight.w500,
-            //   color: AppColors.textSecondaryGreyish
-            // ),
+              ),
+            ],
           ),
+
           8.verticalSpace,
         ],
 
@@ -125,7 +136,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           },
           cursorColor: AppColors.textPrimary,
           cursorHeight: isTablet() ? 14.h : 16.h,
-          cursorWidth: 1.75.w,
+          cursorWidth: 1.5.w,
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: FigmaTextStyles.headline07Medium.copyWith(
@@ -140,14 +151,14 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             contentPadding:
                 widget.contentPadding ??
                 EdgeInsets.symmetric(
-                  horizontal: isTablet() ? 10.w : 16.w,
-                  vertical: isTablet() ? 10.h : 13.h,
+                  horizontal: isTablet() ? 10.w : 14.w,
+                  vertical: isTablet() ? 10.h : 12.h,
                 ),
             // Border styling
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
               borderSide: const BorderSide(
-                color: Color(0xFFDDDDDD),
+                color: AppColors.borderColor,
                 width: 1.0,
               ),
             ),
@@ -155,7 +166,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
               borderRadius: BorderRadius.circular(10.r),
 
               borderSide: const BorderSide(
-                color: Color(0xFFDDDDDD),
+                color: AppColors.borderColor,
                 width: 1.0,
               ),
             ),
@@ -180,7 +191,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
               borderSide: const BorderSide(
-                color: Color(0xFFE0E0E0),
+                color: AppColors.borderColor,
                 width: 1.0,
               ),
             ),
@@ -193,5 +204,8 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
         ),
       ],
     );
+
+    return widget.isExpanded ? Expanded(child: field) : field;
+
   }
 }

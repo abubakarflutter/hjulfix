@@ -6,6 +6,7 @@ import 'package:hjulfix_new/features/shared/welcome/views/welcome_view.dart';
 
 import '../../features/admin/bottom_nav/views/bottom_nav_view.dart';
 import '../../features/admin/customer_vehicles/views/vehicle_details_view.dart';
+import '../../features/admin/offers/views/create_contact_view.dart';
 import '../../features/admin/offers/views/create_offer_view.dart';
 import '../../features/admin/offers/views/select_contact_view.dart';
 import '../../features/admin/offers/views/select_products_view.dart';
@@ -60,6 +61,11 @@ final GoRouter appRouter = GoRouter(
       path: RoutePaths.selectProductView,
       name: Routes.selectProductView,
       builder: (context, state) => SelectProductView(),
+    ),
+    GoRoute(
+      path: RoutePaths.createContactView,
+      name: Routes.createContactView,
+      builder: (context, state) => CreateContactView(),
     ),
   ],
 );

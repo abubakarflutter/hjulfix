@@ -7,4 +7,5 @@ class RoutePaths {
   static const createOfferView = '/create-offer-view';
   static const selectContactView = '/select-contact-view';
   static const selectProductView = '/select-product-view';
+  static const createContactView = '/create_contact_view';
 }

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hjulfix_new/core/app_resources/app_assets.dart';
 import 'package:hjulfix_new/core/shared/widgets/base_scaffold.dart';
 import 'package:hjulfix_new/core/theme/app_text_styles.dart';
 import 'package:hjulfix_new/core/utils/media_query.dart';
@@ -87,7 +88,7 @@ class WelcomeView extends ConsumerWidget {
                       ),
                     ),
                     child: SvgPicture.asset(
-                      'assets/icons/lang-icon.svg',
+                      AppAssets.languageIcon,
                       height: isTablet() ? 16.sp : 22.sp,
                       // colorFilter: ColorFilter.mode(Colors., blendMode),
                     ),

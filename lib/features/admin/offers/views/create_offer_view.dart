@@ -79,98 +79,105 @@ class CreateOfferView extends ConsumerWidget {
           // 20.verticalSpace,
 
           ///----- Selected Contact
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: AppDimensions.viewHorizontalPadding,
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 12.h),
-            decoration: BoxDecoration(
-              color: Color(0xffFAFAFA),
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: AppColors.borderColor, width: 1),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    SvgPicture.asset(
-                      AppAssets.userIcon,
-                      height: 19.h,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.primary,
-                        BlendMode.srcIn,
+          GestureDetector(
+            onTap: (){
+              // HapticFeedback.lightImpact();
+              context.pushNamed(Routes.selectContactView);
+            },
+            behavior: HitTestBehavior.opaque,
+            child: Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: AppDimensions.viewHorizontalPadding,
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 12.h),
+              decoration: BoxDecoration(
+                color: Color(0xffFAFAFA),
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.borderColor, width: 1),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        AppAssets.userIcon,
+                        height: 19.h,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.primary,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                    ),
-                    14.horizontalSpace,
-                    Expanded(
-                      child: AppText(
-                        'Lasse Fisler J',
-                        style: FigmaTextStyles.headline05SemiBold,
+                      14.horizontalSpace,
+                      Expanded(
+                        child: AppText(
+                          'Lasse Fisler J',
+                          style: FigmaTextStyles.headline05SemiBold,
+                        ),
                       ),
-                    ),
-                    SvgPicture.asset(
-                      AppAssets.arrowRightIcon,
-                      colorFilter: ColorFilter.mode(
-                        AppColors.textPrimary,
-                        BlendMode.srcIn,
+                      SvgPicture.asset(
+                        AppAssets.arrowRightIcon,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.textPrimary,
+                          BlendMode.srcIn,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Divider(
-                  height: 24.h,
-                  color: AppColors.borderColor,
-                  indent: 12.w,
-                  endIndent: 12.w,
-                ),
-                Row(
-                  children: [
-                    AppText(
-                      'Email:',
-                      style: FigmaTextStyles.headline06SemiBold,
-                    ),
-                    12.horizontalSpace,
-                    AppText(
-                      'AbubakarFlutter@gmail.com',
-                      style: FigmaTextStyles.headline07Medium.copyWith(
-                        color: AppColors.textGreyishLighter,
+                    ],
+                  ),
+                  Divider(
+                    height: 24.h,
+                    color: AppColors.borderColor,
+                    indent: 12.w,
+                    endIndent: 12.w,
+                  ),
+                  Row(
+                    children: [
+                      AppText(
+                        'Email:',
+                        style: FigmaTextStyles.headline06SemiBold,
                       ),
-                    ),
-                  ],
-                ),
-                4.verticalSpace,
-                Row(
-                  children: [
-                    AppText(
-                      'Phone:',
-                      style: FigmaTextStyles.headline06SemiBold,
-                    ),
-                    12.horizontalSpace,
-                    AppText(
-                      '03441771877',
-                      style: FigmaTextStyles.headline07Medium.copyWith(
-                        color: AppColors.textGreyishLighter,
+                      12.horizontalSpace,
+                      AppText(
+                        'AbubakarFlutter@gmail.com',
+                        style: FigmaTextStyles.headline07Medium.copyWith(
+                          color: AppColors.textGreyishLighter,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                4.verticalSpace,
-                Row(
-                  children: [
-                    AppText(
-                      'Address:',
-                      style: FigmaTextStyles.headline07SemiBold,
-                    ),
-                    12.horizontalSpace,
-                    AppText(
-                      'Gladsaxe Møllevej 21, 2860 Søborg',
-                      style: FigmaTextStyles.headline07Medium.copyWith(
-                        color: AppColors.textGreyishLighter,
+                    ],
+                  ),
+                  4.verticalSpace,
+                  Row(
+                    children: [
+                      AppText(
+                        'Phone:',
+                        style: FigmaTextStyles.headline06SemiBold,
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                      12.horizontalSpace,
+                      AppText(
+                        '03441771877',
+                        style: FigmaTextStyles.headline07Medium.copyWith(
+                          color: AppColors.textGreyishLighter,
+                        ),
+                      ),
+                    ],
+                  ),
+                  4.verticalSpace,
+                  Row(
+                    children: [
+                      AppText(
+                        'Address:',
+                        style: FigmaTextStyles.headline07SemiBold,
+                      ),
+                      12.horizontalSpace,
+                      AppText(
+                        'Gladsaxe Møllevej 21, 2860 Søborg',
+                        style: FigmaTextStyles.headline07Medium.copyWith(
+                          color: AppColors.textGreyishLighter,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
 
