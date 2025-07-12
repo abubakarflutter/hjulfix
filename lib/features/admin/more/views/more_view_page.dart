@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,111 +15,111 @@ class MoreViewPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return VersatileScaffold(
-        title: "More",
-        subtitle: "Settings, scanner, and tools",
+      title: "More",
+      subtitle: "Settings, scanner, and tools",
 
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-          children: [
+        children: [
+          18.verticalSpace,
 
-            18.verticalSpace,
+          MoreOptionsRow(
+            firstIconPath: AppAssets.navOffersOutlineIcon,
+            firstLabel: 'Offers',
+            firstIconSize: 19,
+            firstIconColor: Color(0xff7851C1),
+            firstOnTap: () {},
+            secondIconPath: AppAssets.navVehicleOutlineIcon,
+            secondLabel: 'Customer Vehicles',
+            secondIconSize: 25,
+            secondIconColor: Color(0xff008FCC),
+            secondOnTap: () {},
+          ),
 
-            MoreOptionsRow(
-              firstIconPath: AppAssets.growArrowIcon,
-              firstLabel: 'Leads',
-              firstIconSize: 13,
-              firstOnTap: (){},
-              secondIconPath: AppAssets.dealersUserIcon,
-              secondLabel: 'Dealers',
-              secondOnTap: (){},
+          MoreOptionsRow(
+            firstIconPath: AppAssets.growArrowIcon,
+            firstLabel: 'Leads',
+            firstIconSize: 13,
+            firstOnTap: () {},
+            secondIconPath: AppAssets.dealersUserIcon,
+            secondLabel: 'Dealers',
+            secondOnTap: () {},
+          ),
+
+          MoreOptionsRow(
+            firstIconPath: AppAssets.userIcon,
+            firstLabel: 'Admins',
+            firstIconColor: Color(0xffFF7954),
+            firstIconSize: 21,
+            firstOnTap: () {},
+            secondIconPath: AppAssets.bellIcon,
+            secondIconColor: Colors.purple,
+            secondLabel: 'Pickup Request',
+            secondOnTap: () {},
+          ),
+
+          MoreOptionsRow(
+            firstIconPath: AppAssets.workersGroupIcon,
+            firstLabel: 'Workers',
+            firstIconSize: 23,
+            firstIconColor: Colors.blue,
+            firstOnTap: () {},
+            secondIconPath: AppAssets.productsIcon,
+            secondLabel: 'Products',
+            secondIconSize: 19,
+            secondOnTap: () {},
+          ),
+
+          MoreOptionsRow(
+            firstIconPath: AppAssets.stagesLayersIcon,
+            firstLabel: 'Stages',
+            firstIconSize: 17,
+            firstOnTap: () {},
+            secondIconPath: AppAssets.clockIcon,
+            secondLabel: 'Stage Transaction',
+            secondOnTap: () {},
+          ),
+
+          Padding(
+            padding: EdgeInsets.only(left: 17.w, bottom: 15.h, top: 4.h),
+            child: AppText(
+              'Other features',
+              style: FigmaTextStyles.headline06SemiBold,
             ),
+          ),
 
-            MoreOptionsRow(
-              firstIconPath: AppAssets.userIcon,
-              firstLabel: 'Admins',
-              firstIconColor: Color(0xffFF7954),
-              firstIconSize: 21,
-              firstOnTap: (){},
-              secondIconPath: AppAssets.bellIcon,
-              secondIconColor: Colors.purple,
-              secondLabel: 'Pickup Request',
-              secondOnTap: (){},
+          MoreOptionsRow(
+            firstIconPath: AppAssets.languageIcon,
+            firstLabel: 'Languages',
+            firstIconSize: 22,
+            // firstIconColor: Colors.green,
+            firstOnTap: () {},
+            secondIconPath: AppAssets.settingsIcon,
+            secondLabel: 'Settings',
+            secondOnTap: () {},
+          ),
+
+          //----- Logout
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+            margin: EdgeInsets.symmetric(horizontal: 16.w),
+            decoration: BoxDecoration(
+              border: Border.all(color: AppColors.borderColor),
+              borderRadius: BorderRadius.circular(10.r),
             ),
-
-            MoreOptionsRow(
-              firstIconPath: AppAssets.workersGroupIcon,
-              firstLabel: 'Workers',
-              firstIconSize: 23,
-              firstIconColor: Colors.blue,
-              firstOnTap: (){},
-              secondIconPath: AppAssets.productsIcon,
-              secondLabel: 'Products',
-              secondIconSize: 19,
-              secondOnTap: (){},
+            child: Row(
+              children: [
+                SvgPicture.asset(AppAssets.logoutIcon),
+                14.horizontalSpace,
+                AppText('Logout', style: FigmaTextStyles.headline06SemiBold),
+              ],
             ),
+          ),
 
-            MoreOptionsRow(
-              firstIconPath: AppAssets.stagesLayersIcon,
-              firstLabel: 'Stages',
-              firstIconSize: 17,
-              firstOnTap: (){},
-              secondIconPath: AppAssets.clockIcon,
-              secondLabel: 'Stage Transaction',
-              secondOnTap: (){},
-            ),
-
-
-            Padding(
-              padding:  EdgeInsets.only(
-                left: 17.w,
-                bottom: 15.h,
-                top: 4.h,
-              ),
-              child: AppText('Other features',
-               style: FigmaTextStyles.headline06SemiBold,
-              ),
-            ),
-
-            MoreOptionsRow(
-              firstIconPath: AppAssets.languageIcon,
-              firstLabel: 'Languages',
-              firstIconSize: 22,
-              // firstIconColor: Colors.green,
-              firstOnTap: (){},
-              secondIconPath: AppAssets.settingsIcon,
-              secondLabel: 'Settings',
-              secondOnTap: (){},
-            ),
-
-            //----- Logout
-            Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 16.w,
-                vertical: 16.h,
-              ),
-              margin: EdgeInsets.symmetric(
-                horizontal: 16.w,
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: AppColors.borderColor
-                ),
-                borderRadius: BorderRadius.circular(10.r),
-              ),
-              child: Row(
-                children: [
-                  SvgPicture.asset(AppAssets.logoutIcon),
-                  14.horizontalSpace,
-                  AppText('Logout',
-                    style: FigmaTextStyles.headline06SemiBold,
-                  ),
-                ],
-              ),
-            )
-
-          ],
-        )
+          30.verticalSpace,
+        ],
+      ),
     );
   }
 }
@@ -148,11 +147,7 @@ class MoreOptionsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        left: 15.w,
-        right: 15.w,
-        bottom: 12.h,
-      ),
+      padding: EdgeInsets.only(left: 15.w, right: 15.w, bottom: 12.h),
       child: Row(
         children: [
           Expanded(
@@ -163,9 +158,7 @@ class MoreOptionsRow extends StatelessWidget {
                 height: 85.h,
                 padding: EdgeInsets.all(12).w,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.borderColor,
-                  ),
+                  border: Border.all(color: AppColors.borderColor),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(
@@ -174,20 +167,21 @@ class MoreOptionsRow extends StatelessWidget {
                     SvgPicture.asset(
                       firstIconPath,
                       height: firstIconSize.h,
-                      colorFilter: firstIconColor != null ? ColorFilter.mode(firstIconColor!, BlendMode.srcIn) : null,
+                      colorFilter: firstIconColor != null
+                          ? ColorFilter.mode(firstIconColor!, BlendMode.srcIn)
+                          : null,
                     ),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppText(firstLabel,
+                        AppText(
+                          firstLabel,
                           style: FigmaTextStyles.headline06SemiBold,
                         ),
                         SvgPicture.asset(AppAssets.arrowRightIcon),
                       ],
-                    )
-
-
+                    ),
                   ],
                 ),
               ),
@@ -202,31 +196,30 @@ class MoreOptionsRow extends StatelessWidget {
                 height: 85.h,
                 padding: EdgeInsets.all(12).w,
                 decoration: BoxDecoration(
-                  border: Border.all(
-                    color: AppColors.borderColor,
-                  ),
+                  border: Border.all(color: AppColors.borderColor),
                   borderRadius: BorderRadius.circular(10.r),
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.asset(
-                     secondIconPath,
-                     height: secondIconSize.h,
-                      colorFilter: secondIconColor != null ? ColorFilter.mode(secondIconColor!, BlendMode.srcIn) : null,
+                      secondIconPath,
+                      height: secondIconSize.h,
+                      colorFilter: secondIconColor != null
+                          ? ColorFilter.mode(secondIconColor!, BlendMode.srcIn)
+                          : null,
                     ),
                     const Spacer(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppText(secondLabel,
+                        AppText(
+                          secondLabel,
                           style: FigmaTextStyles.headline06SemiBold,
                         ),
                         SvgPicture.asset(AppAssets.arrowRightIcon),
                       ],
-                    )
-
-
+                    ),
                   ],
                 ),
               ),

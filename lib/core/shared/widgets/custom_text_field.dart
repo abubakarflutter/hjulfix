@@ -75,7 +75,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
 
   @override
   Widget build(BuildContext context) {
-    final field =  Column(
+    final field = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Label text (only show if provided)
@@ -86,20 +86,26 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
                 " ${widget.labelText!}",
                 style:
                     widget.labelStyle ??
-                        (widget.isDarkLabel ?    FigmaTextStyles.headline07SemiBold.copyWith(
-                      color: AppColors.textPrimary,
-                      fontSize: isTablet() ? 7.5.sp : 11.sp,
-                    ) : FigmaTextStyles.headline07Medium.copyWith(
-                      color: widget.isDarkLabel ? AppColors.textPrimary : AppColors.textGreyishDark,
-                      fontSize: isTablet() ? 7.5.sp : 11.sp,
-                    )),
+                    (widget.isDarkLabel
+                        ? FigmaTextStyles.headline07SemiBold.copyWith(
+                            color: AppColors.textPrimary,
+                            fontSize: isTablet() ? 7.5.sp : 11.sp,
+                          )
+                        : FigmaTextStyles.headline07Medium.copyWith(
+                            color: widget.isDarkLabel
+                                ? AppColors.textPrimary
+                                : AppColors.textGreyishDark,
+                            fontSize: isTablet() ? 7.5.sp : 11.sp,
+                          )),
               ),
-            if(widget.isRequired)  AppText('*',
-                style: FigmaTextStyles.headline05SemiBold.copyWith(
-                  color: Colors.red,
-                  // fontSize: isTablet() ? 7.5.sp : 11.sp,
+              if (widget.isRequired)
+                AppText(
+                  '*',
+                  style: FigmaTextStyles.headline05SemiBold.copyWith(
+                    color: Colors.red,
+                    // fontSize: isTablet() ? 7.5.sp : 11.sp,
+                  ),
                 ),
-              ),
             ],
           ),
 
@@ -140,7 +146,7 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: FigmaTextStyles.headline07Medium.copyWith(
-              color: AppColors.textGreyishLighter
+              color: AppColors.textGreyishLighter,
             ),
             suffixIcon: widget.suffixWidget,
             prefixIcon: widget.prefixWidget,
@@ -164,7 +170,6 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
-
               borderSide: const BorderSide(
                 color: AppColors.borderColor,
                 width: 1.0,
@@ -172,7 +177,6 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
-
               borderSide: const BorderSide(
                 color: AppColors.primary,
                 width: 1.25,
@@ -180,12 +184,10 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.r),
-
               borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(100.r),
-
               borderSide: const BorderSide(color: Colors.red, width: 1.25),
             ),
             disabledBorder: OutlineInputBorder(
@@ -206,6 +208,5 @@ class _GlobalTextFieldState extends State<GlobalTextField> {
     );
 
     return widget.isExpanded ? Expanded(child: field) : field;
-
   }
 }

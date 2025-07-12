@@ -100,10 +100,12 @@ class AppText extends ConsumerWidget {
         : _buildPlainText(ref, baseStyle);
 
     return GestureDetector(
-      onTap: () {
-        HapticFeedback.lightImpact();
-        if (onTap != null) onTap!();
-      },
+      onTap: onTap != null
+          ? () {
+              HapticFeedback.lightImpact();
+              if (onTap != null) onTap!();
+            }
+          : null,
       behavior: HitTestBehavior.opaque,
       child: child,
     );
